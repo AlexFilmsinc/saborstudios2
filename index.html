@@ -21,10 +21,22 @@
   }
 
   html, body {
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--black);
+    color: var(--white);
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
+  }
+
+  /* ===== SCROLL PROGRESS ===== */
+  #scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--red);
+    z-index: 1100;
+    transition: width 0.1s linear;
   }
 
   /* ===== LOADER ===== */
@@ -37,7 +49,7 @@
     justify-content: center;
     z-index: 999;
     opacity: 1;
-    transition: background 1.1s ease, opacity 0.7s ease;
+    transition: background 0.9s ease, opacity 0.6s ease;
   }
 
   #loader.fading-bg {
@@ -69,7 +81,8 @@
   }
 
   .loader-wordmark .size-ref {
-    visibility: hidden;
+    color: var(--red);
+    opacity: 0.22;
   }
 
   .loader-wordmark .fill-layer {
@@ -77,7 +90,8 @@
     inset: 0;
     color: var(--red);
     overflow: hidden;
-    width: 0%;
+    -webkit-clip-path: inset(0 100% 0 0);
+    clip-path: inset(0 100% 0 0);
     animation: fillWipe 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
     animation-delay: 0.15s;
   }
@@ -88,7 +102,10 @@
   }
 
   @keyframes fillWipe {
-    to { width: 100%; }
+    to {
+      -webkit-clip-path: inset(0 0 0 0);
+      clip-path: inset(0 0 0 0);
+    }
   }
 
   .loader-wordmark.growing {
@@ -97,7 +114,8 @@
   }
 
   .loader-wordmark.growing .fill-layer {
-    width: 100%;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
   }
 
   /* ===== NAV ===== */
@@ -126,20 +144,20 @@
     font-size: 12px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gray-dark);
+    color: var(--gray);
     text-decoration: none;
     white-space: nowrap;
     transition: color 0.2s ease;
   }
 
-  .nav-item:hover { color: var(--ink); }
+  .nav-item:hover { color: var(--white); }
 
   nav.on-dark .nav-item { color: var(--gray); }
   nav.on-dark .nav-item:hover { color: var(--white); }
 
   .nav-item .count {
     font-size: 10px;
-    color: var(--gray-dark);
+    color: var(--gray);
     margin-left: 2px;
   }
 
@@ -168,7 +186,7 @@
     font-size: 19px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--white);
     white-space: nowrap;
     opacity: 0;
     animation: tagIn 0.6s ease forwards;
@@ -180,26 +198,13 @@
 
   #navLogo .red { color: var(--red); }
 
-  .nav-est {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray-dark);
-    opacity: 0;
-    animation: tagIn 0.6s ease forwards;
-    animation-delay: 4.3s;
-    transition: color 0.3s ease;
-  }
-
-  nav.on-dark .nav-est { color: var(--gray); }
-
   .nav-contact {
     font-size: 12px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--ink);
-    border: 1px solid rgba(10,10,10,0.25);
-    border-radius: 999px;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
     padding: 10px 22px;
     text-decoration: none;
     transition: all 0.2s ease;
@@ -235,7 +240,7 @@
     display: block;
     width: 100%;
     height: 2px;
-    background: var(--ink);
+    background: var(--white);
     transition: background 0.3s ease;
   }
 
@@ -244,7 +249,9 @@
   .mobile-menu {
     position: fixed;
     inset: 0;
-    background: var(--black);
+    background: rgba(10,10,10,0.72);
+    backdrop-filter: blur(22px) saturate(130%);
+    -webkit-backdrop-filter: blur(22px) saturate(130%);
     z-index: 998;
     display: flex;
     flex-direction: column;
@@ -261,8 +268,24 @@
     transform: translateY(0);
   }
 
+  .mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-menu-brand {
+    font-family: 'Anton', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .mobile-menu-brand .red { color: var(--red); }
+
   .mobile-menu-close {
-    align-self: flex-end;
+    align-self: flex-start;
     background: none;
     border: none;
     color: var(--white);
@@ -273,23 +296,27 @@
   }
 
   .mobile-menu-links {
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: flex-end;
+    gap: 14px;
   }
 
   .mobile-menu-link {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(34px, 11vw, 52px);
+    font-weight: 400;
+    font-size: clamp(30px, 10vw, 46px);
     text-transform: uppercase;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
     color: var(--white);
     text-decoration: none;
     line-height: 1.1;
     display: flex;
     align-items: baseline;
+    justify-content: flex-end;
     gap: 10px;
+    text-align: right;
   }
 
   .mobile-menu-link.active-link { color: var(--red); }
@@ -297,7 +324,7 @@
   .mobile-menu-link .count {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
-    color: var(--gray);
+    color: rgba(255,255,255,0.5);
   }
 
   /* ===== FLOATING CALL PILL ===== */
@@ -677,22 +704,7 @@
     to { opacity: 1; filter: blur(0); transform: translateY(0); }
   }
 
-  .hero-tagline {
-    position: relative;
-    z-index: 2;
-    margin-top: 22px;
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gray);
-    opacity: 0;
-    animation: tagIn 0.8s ease forwards;
-    animation-delay: 3.9s;
-  }
-
   @keyframes tagIn { to { opacity: 1; } }
-
-  .hero-tagline .red { color: var(--red); }
 
   .scroll-cue {
     position: absolute;
@@ -802,6 +814,11 @@
     text-align: left;
     display: block;
     width: 100%;
+  }
+
+  .tile-bg {
+    background-size: cover;
+    background-position: center;
   }
 
   .category-tile .tile-bg {
@@ -1042,29 +1059,169 @@
     margin-top: 4px;
   }
 
+  .detail-tile, .category-tile {
+    cursor: pointer;
+  }
+
+  /* ===== WORK LIGHTBOX ===== */
+  .work-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .work-lightbox.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .work-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(5,5,5,0.7);
+    backdrop-filter: blur(28px) saturate(120%);
+    -webkit-backdrop-filter: blur(28px) saturate(120%);
+  }
+
+  .work-lightbox-close {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    z-index: 2;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 36px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .work-lightbox-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 880px;
+    max-height: 86vh;
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    transform: scale(0.94) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .work-lightbox.open .work-lightbox-card {
+    transform: scale(1) translateY(0);
+  }
+
+  .work-lightbox-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: linear-gradient(160deg, #232323 0%, #0d0d0d 100%);
+  }
+
+  .work-lightbox-info {
+    padding: 28px 32px 32px;
+  }
+
+  .work-lightbox-cat {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .work-lightbox-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    color: var(--white);
+    line-height: 1.1;
+  }
+
+  .work-lightbox-sub {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 6px;
+  }
+
   @media (max-width: 700px) {
     .detail-grid { grid-template-columns: 1fr; }
     .category-view-inner { padding: 100px 24px 100px; }
+    .work-lightbox { padding: 16px; }
+    .work-lightbox-info { padding: 22px 22px 26px; }
   }
 
   /* ===== ABOUT STRIP ===== */
   .about-strip {
-    background: var(--paper);
-    border-top: 1px solid rgba(10,10,10,0.1);
-    border-bottom: 1px solid rgba(10,10,10,0.1);
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 80px 48px;
     max-width: 1400px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 320px 1fr 1fr;
     gap: 60px;
     align-items: center;
   }
 
+  .about-portrait {
+    position: relative;
+    width: 100%;
+  }
+
+  .about-portrait-frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .about-portrait-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--red);
+    transform: translate(10px, 10px);
+    pointer-events: none;
+  }
+
+  .about-portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .about-portrait:hover .about-portrait-frame img { transform: scale(1.04); }
+
+  .about-portrait-caption {
+    margin-top: 20px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .about-portrait-caption .red { color: var(--red); }
+
   .about-strip-text {
     font-size: 20px;
     line-height: 1.5;
-    color: var(--ink);
+    color: var(--white);
     max-width: 480px;
   }
 
@@ -1074,7 +1231,7 @@
     margin-top: 18px;
     font-size: 15px;
     line-height: 1.5;
-    color: var(--gray-dark);
+    color: var(--gray);
   }
 
   .stat-row {
@@ -1086,7 +1243,7 @@
   .stat-num {
     font-family: 'Anton', sans-serif;
     font-size: 40px;
-    color: var(--ink);
+    color: var(--white);
   }
 
   .stat-num .red { color: var(--red); }
@@ -1100,7 +1257,7 @@
     font-size: 11px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gray-dark);
+    color: var(--gray);
     margin-top: 6px;
   }
 
@@ -1169,6 +1326,98 @@
     color: var(--white);
   }
 
+  /* ===== CUSTOM SELECT ===== */
+  .custom-select {
+    position: relative;
+    z-index: 5;
+  }
+
+  .custom-select-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    color: var(--white);
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    padding: 8px 0 14px;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    transition: border-color 0.3s ease;
+  }
+
+  .custom-select.open .custom-select-trigger {
+    border-color: var(--red);
+  }
+
+  #projectSelectLabel.placeholder { color: rgba(255,255,255,0.3); }
+
+  .custom-select-chevron {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: var(--gray);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.25s ease;
+    flex: none;
+    margin-left: 12px;
+  }
+
+  .custom-select.open .custom-select-chevron {
+    transform: rotate(180deg);
+  }
+
+  .custom-select-panel {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--black);
+    padding-top: 6px;
+  }
+
+  .custom-select.open .custom-select-panel {
+    display: flex;
+  }
+
+  .custom-select-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 4px;
+    font-size: 17px;
+    color: var(--white);
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+
+  .custom-select-option:hover {
+    color: var(--red);
+  }
+
+  .custom-select-option.selected {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .custom-select-check {
+    width: 16px;
+    flex: none;
+    color: var(--white);
+    font-size: 14px;
+  }
+
+  .custom-select-option:not(.selected) .custom-select-check {
+    color: transparent;
+  }
+
   .submit-btn {
     margin-top: 20px;
     background: var(--red);
@@ -1186,6 +1435,37 @@
   }
 
   .submit-btn:hover { opacity: 0.85; }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .form-error {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: rgba(224,45,45,0.1);
+    border: 1px solid rgba(224,45,45,0.3);
+    border-radius: 12px;
+    color: var(--red);
+    font-size: 13px;
+  }
+
+  .form-success {
+    display: none;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .form-success-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .form-success p {
+    color: var(--gray);
+    font-size: 15px;
+  }
 
   .contact-side {
     display: flex;
@@ -1197,6 +1477,7 @@
     background: var(--black);
     color: var(--gray);
     padding: 64px 48px 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
   }
 
   .footer-inner {
@@ -1309,6 +1590,7 @@
   @media (max-width: 900px) {
     .category-grid { grid-template-columns: 1fr; }
     .about-strip { grid-template-columns: 1fr; }
+    .about-portrait { max-width: 320px; }
     .contact-grid { grid-template-columns: 1fr; }
     .field-group.full { grid-column: 1; }
     nav {
@@ -1330,6 +1612,8 @@
 </head>
 <body>
 
+<div id="scrollProgress"></div>
+
 <div id="loader">
   <div id="loader-parallax">
     <div class="loader-wordmark" id="loaderWordmark">
@@ -1344,7 +1628,6 @@
   <a href="#work" class="nav-item">Portfolio</a>
   <div class="nav-center">
     <div id="navLogo">SABOR <span class="red">STUDIOS</span></div>
-    <div class="nav-est">EST. 2020</div>
   </div>
   <div class="nav-group">
     <a href="#about" class="nav-item">About</a>
@@ -1356,12 +1639,15 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  <div class="mobile-menu-top">
+    <div class="mobile-menu-brand">SABOR <span class="red">STUDIOS</span></div>
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+  </div>
   <div class="mobile-menu-links">
-    <a href="#work" class="mobile-menu-link active-link">Featured Work</a>
+    <a href="#work" class="mobile-menu-link">Featured Work</a>
     <a href="#work" class="mobile-menu-link">Portfolio</a>
     <a href="#about" class="mobile-menu-link">About</a>
-    <a href="#contact" class="mobile-menu-link">Start a project</a>
+    <a href="#contact" class="mobile-menu-link active-link">Start a project</a>
   </div>
 </div>
 
@@ -1398,12 +1684,11 @@
   </div>
 
   <h1 class="hero-title" id="heroTitle">SABOR STUDIOS</h1>
-  <p class="hero-tagline">Taste the <span class="red">Vision</span></p>
 
   <div class="hero-now-playing" id="heroNowPlaying">
     <div class="hero-now-playing-label"><span class="live-dot"></span>Now Playing</div>
-    <div class="hero-now-playing-title">Midnight Static</div>
-    <div class="hero-now-playing-cat">Music Video</div>
+    <div class="hero-now-playing-title"></div>
+    <div class="hero-now-playing-cat"></div>
   </div>
 
   <div class="hero-video-progress" id="heroVideoProgress">
@@ -1437,7 +1722,7 @@
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">02 Projects</div>
+        <div class="category-tile-count">05 Projects</div>
         <div class="category-tile-title">Music Videos</div>
       </div>
     </button>
@@ -1447,17 +1732,17 @@
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">02 Projects</div>
+        <div class="category-tile-count">05 Projects</div>
         <div class="category-tile-title">Commercials</div>
       </div>
     </button>
     <button class="category-tile reveal-scale" data-category="photography">
-      <div class="tile-bg"></div>
+      <div class="tile-bg" style="background-image: url('photography/heat-index.jpg');"></div>
       <div class="category-tile-arrow">
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">02 Projects</div>
+        <div class="category-tile-count">10 Projects</div>
         <div class="category-tile-title">Photography</div>
       </div>
     </button>
@@ -1496,6 +1781,36 @@
           <div class="tile-sub">Dir. Alex Films</div>
         </div>
       </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Neon Static</div>
+          <div class="tile-sub">Dir. Alex Films</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">After Hours</div>
+          <div class="tile-sub">Dir. Alex Films</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Slow Burn</div>
+          <div class="tile-sub">Dir. Alex Films</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1531,6 +1846,36 @@
           <div class="tile-sub">Brand Film</div>
         </div>
       </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Heritage Coffee Co.</div>
+          <div class="tile-sub">30s Spot</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Lonestar Fitness</div>
+          <div class="tile-sub">Brand Film</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Skyline Realty</div>
+          <div class="tile-sub">15s Spot</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1547,9 +1892,8 @@
     </div>
     <div class="detail-grid">
       <div class="detail-tile">
-        <div class="tile-bg"></div>
+        <div class="tile-bg" style="background-image: url('photography/heat-index.jpg');"></div>
         <div class="tile-num">01</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
           <div class="tile-cat">Photography</div>
           <div class="tile-title">Heat Index</div>
@@ -1557,13 +1901,84 @@
         </div>
       </div>
       <div class="detail-tile">
-        <div class="tile-bg"></div>
+        <div class="tile-bg" style="background-image: url('photography/founders-series.jpg');"></div>
         <div class="tile-num">02</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
           <div class="tile-cat">Photography</div>
           <div class="tile-title">Founders Series</div>
           <div class="tile-sub">Portrait Campaign</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/golden-hour.jpg');"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Golden Hour</div>
+          <div class="tile-sub">Editorial Series</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/concrete-bloom.jpg');"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Concrete Bloom</div>
+          <div class="tile-sub">Lifestyle Campaign</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/night-market.jpg');"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Night Market</div>
+          <div class="tile-sub">Editorial Series</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/studio-sessions.jpg');"></div>
+        <div class="tile-num">06</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Studio Sessions</div>
+          <div class="tile-sub">Portrait Campaign</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/red-static.jpg');"></div>
+        <div class="tile-num">07</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Red Static</div>
+          <div class="tile-sub">Editorial Series</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/backstage.jpg');"></div>
+        <div class="tile-num">08</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Backstage</div>
+          <div class="tile-sub">Behind the Scenes</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/lowlight.jpg');"></div>
+        <div class="tile-num">09</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Lowlight</div>
+          <div class="tile-sub">Editorial Series</div>
+        </div>
+      </div>
+      <div class="detail-tile">
+        <div class="tile-bg" style="background-image: url('photography/afterglow.jpg');"></div>
+        <div class="tile-num">10</div>
+        <div class="tile-info">
+          <div class="tile-cat">Photography</div>
+          <div class="tile-title">Afterglow</div>
+          <div class="tile-sub">Lifestyle Campaign</div>
         </div>
       </div>
     </div>
@@ -1571,6 +1986,12 @@
 </div>
 
 <div class="about-strip" id="about">
+  <div class="about-portrait reveal-scale">
+    <div class="about-portrait-frame">
+      <img src="photography/alex.jpg" alt="Alex Films, Creative Director of Sabor Studios, holding a Canon film camera">
+    </div>
+    <div class="about-portrait-caption"><span class="red">Alex Films</span> — Creative Director</div>
+  </div>
   <div class="about-strip-text reveal-left">
     Sabor Studios is a <span class="red">creative production company</span> led by Creative Director Alex Films, specializing in <span class="red">cinematic music videos</span> and visual storytelling.
     <div class="about-strip-sub">Built to bring your vision to life through intentional, high-impact visuals.</div>
@@ -1596,47 +2017,73 @@
   <div class="section-label">Get in touch</div>
   <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Let's make something worth watching.</span></h2>
 
-  <div class="contact-grid">
+  <div class="form-success" id="formSuccess">
+    <div class="form-success-title">You're in.</div>
+    <p>Thanks for reaching out — Alex will get back to you personally.</p>
+  </div>
+
+  <div class="contact-grid" id="contactForm">
     <div>
       <div class="field-group reveal-up">
         <div class="field-label">Full Name</div>
-        <input class="field-input" type="text" placeholder="Full Name">
+        <input class="field-input" type="text" id="f-name" placeholder="Full Name">
       </div>
       <div class="field-group reveal-up">
         <div class="field-label">Email Address</div>
-        <input class="field-input" type="email" placeholder="Email Address">
+        <input class="field-input" type="email" id="f-email" placeholder="Email Address">
       </div>
-      <div class="field-group reveal-up">
+      <div class="field-group">
         <div class="field-label">Project Type</div>
-        <select class="field-input">
-          <option value="">Project Type</option>
-          <option>Music Video</option>
-          <option>Commercial</option>
-          <option>Photography</option>
-          <option>Headshots</option>
-          <option>Real Estate</option>
-          <option>Other</option>
-        </select>
+        <div class="custom-select" id="projectSelect">
+          <button type="button" class="custom-select-trigger" id="projectSelectTrigger">
+            <span id="projectSelectLabel" class="placeholder">Project Type</span>
+            <svg class="custom-select-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="custom-select-panel" id="projectSelectPanel">
+            <div class="custom-select-option selected" data-value="">
+              <span class="custom-select-check">&#10003;</span>
+              <span>Project Type</span>
+            </div>
+            <div class="custom-select-option" data-value="Music Video">
+              <span class="custom-select-check"></span>
+              <span>Music Video</span>
+            </div>
+            <div class="custom-select-option" data-value="Commercial">
+              <span class="custom-select-check"></span>
+              <span>Commercial</span>
+            </div>
+            <div class="custom-select-option" data-value="Photography">
+              <span class="custom-select-check"></span>
+              <span>Photography</span>
+            </div>
+            <div class="custom-select-option" data-value="Other">
+              <span class="custom-select-check"></span>
+              <span>Other</span>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="f-project" value="">
       </div>
-      <div class="field-group reveal-up">
+      <div class="field-group">
         <div class="field-label">Project Details</div>
-        <textarea class="field-input" placeholder="Tell me about your project..."></textarea>
+        <textarea class="field-input" id="f-message" placeholder="Tell me about your project..."></textarea>
       </div>
     </div>
     <div>
       <div class="field-group reveal-up">
         <div class="field-label">Phone Number</div>
-        <input class="field-input" type="tel" placeholder="Phone Number">
+        <input class="field-input" type="tel" id="f-phone" placeholder="Phone Number">
       </div>
       <div class="field-group reveal-up">
         <div class="field-label">Preferred Date</div>
-        <input class="field-input" type="text" placeholder="Preferred Date (e.g. 05.06.26)">
+        <input class="field-input" type="text" id="f-date" placeholder="Preferred Date (e.g. 05.06.26)">
       </div>
       <div class="field-group reveal-up">
         <div class="field-label">Budget</div>
-        <input class="field-input" type="text" placeholder="Budget (e.g. $500)">
+        <input class="field-input" type="text" id="f-budget" placeholder="Budget (e.g. $500)">
       </div>
-      <button class="submit-btn reveal-up">Send Inquiry</button>
+      <div class="form-error" id="formError">Name and email are required!</div>
+      <button class="submit-btn reveal-up" id="formSubmit" onclick="submitForm()">Send Inquiry</button>
     </div>
   </div>
 </div>
@@ -1652,7 +2099,7 @@
       <div class="reveal-up">
         <div class="footer-col-title">Sitemap</div>
         <div class="footer-links">
-          <a href="#work">Featured Work</a>
+          <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#contact">Start a Project</a>
         </div>
@@ -1708,6 +2155,19 @@
   </a>
 </div>
 
+<div class="work-lightbox" id="workLightbox">
+  <div class="work-lightbox-backdrop" data-lightbox-close></div>
+  <button class="work-lightbox-close" data-lightbox-close aria-label="Close">&times;</button>
+  <div class="work-lightbox-card">
+    <div class="work-lightbox-media" id="lightboxMedia"></div>
+    <div class="work-lightbox-info">
+      <div class="work-lightbox-cat" id="lightboxCat"></div>
+      <div class="work-lightbox-title" id="lightboxTitle"></div>
+      <div class="work-lightbox-sub" id="lightboxSub"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   const heroTitle = document.getElementById('heroTitle');
   const loader = document.getElementById('loader');
@@ -1732,7 +2192,19 @@
 
   setTimeout(() => {
     parallaxEnabled = false;
-    loaderParallax.style.transform = 'translate(0px, 0px)';
+
+    // The loader sits at exact screen-center, but the real hero title sits
+    // slightly above center (since the tagline + scroll cue share the same
+    // centered flex column below it). Measure the real gap and nudge the
+    // loader to that exact spot before growing, so it lands precisely on
+    // top of the hero title instead of drifting onto it at the last second.
+    const loaderRect = loaderWordmark.getBoundingClientRect();
+    const loaderCenterY = loaderRect.top + loaderRect.height / 2;
+    const heroTitleRect = heroTitle.getBoundingClientRect();
+    const heroTitleCenterY = heroTitleRect.top + heroTitleRect.height / 2;
+    const verticalCorrection = heroTitleCenterY - loaderCenterY;
+
+    loaderParallax.style.transform = `translate(0px, ${verticalCorrection}px)`;
     loaderWordmark.classList.add('growing');
     loader.classList.add('fading-bg');
 
@@ -1745,6 +2217,7 @@
 
     setTimeout(() => {
       loader.style.display = 'none';
+      heroTitle.style.transition = 'none';
     }, GROW_DURATION - 250 + CROSSFADE_DURATION);
 
   }, GROW_START);
@@ -1820,15 +2293,32 @@
   window.addEventListener('resize', updateNavTheme);
   updateNavTheme();
 
-  // ===== HERO PARALLAX =====
+  // ===== HERO PARALLAX & EXIT =====
   const heroVideoBgEl = document.getElementById('heroVideoBg');
   const heroSectionEl = document.querySelector('.hero');
+  const heroTitleEl = document.getElementById('heroTitle');
+  const heroScrollCueEl = document.querySelector('.scroll-cue');
 
   function updateHeroParallax() {
     const rect = heroSectionEl.getBoundingClientRect();
     if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
     const offset = rect.top * -0.12;
     heroVideoBgEl.style.transform = `translateY(${offset}px)`;
+
+    // As the hero scrolls upward out of view, ease the title/cue down in
+    // scale and opacity so the section feels like it's settling away
+    // rather than just sliding off-screen flat.
+    const scrolled = Math.max(0, -rect.top);
+    const progress = Math.min(1, scrolled / (rect.height * 0.7));
+    const scale = 1 - progress * 0.08;
+    const fade = 1 - progress;
+
+    if (heroTitleEl.classList.contains('visible')) {
+      heroTitleEl.style.transform = `scale(${scale})`;
+      heroTitleEl.style.opacity = fade;
+    }
+    if (heroScrollCueEl) heroScrollCueEl.style.opacity = Math.max(0, 1 - progress * 2.5);
   }
 
   window.addEventListener('scroll', updateHeroParallax, { passive: true });
@@ -1874,6 +2364,32 @@
   window.addEventListener('resize', updateCallPill);
   updateCallPill();
 
+  // ===== SCROLL PROGRESS BAR =====
+  const scrollProgressEl = document.getElementById('scrollProgress');
+
+  function updateScrollProgress() {
+    const openView = document.querySelector('.category-view.open');
+    let scrollTop, docHeight;
+
+    if (openView) {
+      scrollTop = openView.scrollTop;
+      docHeight = openView.scrollHeight - openView.clientHeight;
+    } else {
+      scrollTop = window.scrollY;
+      docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    }
+
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgressEl.style.width = pct + '%';
+  }
+
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  window.addEventListener('resize', updateScrollProgress);
+  document.querySelectorAll('.category-view').forEach(view => {
+    view.addEventListener('scroll', updateScrollProgress, { passive: true });
+  });
+  updateScrollProgress();
+
   // ===== CATEGORY DETAIL VIEWS =====
   const categoryViews = Array.from(document.querySelectorAll('.category-view'));
 
@@ -1887,6 +2403,7 @@
     window.scrollTo(0, 0);
     if (pushHash) window.location.hash = `work/${slug}`;
     updateCallPill();
+    updateScrollProgress();
   }
 
   function closeCategoryView(pushHash) {
@@ -1896,6 +2413,7 @@
       history.pushState(null, '', '#work');
     }
     updateCallPill();
+    updateScrollProgress();
   }
 
   document.querySelectorAll('.category-tile').forEach(tile => {
@@ -1996,6 +2514,127 @@
 
   goToHeroSlide(0);
   startHeroAutoplay();
+
+  // ===== CONTACT FORM =====
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbxxmcHstLO6LAfblwAGIZ0YlP6bJ5Jstxl6ZSGcH-J1XFFtsM_2IjsiDHO6e4VRL_DD/exec";
+
+  async function submitForm() {
+    const btn = document.getElementById('formSubmit');
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const project = document.getElementById('f-project').value;
+    const date = document.getElementById('f-date').value.trim();
+    const budget = document.getElementById('f-budget').value.trim();
+    const message = document.getElementById('f-message').value.trim();
+
+    const errorEl = document.getElementById('formError');
+
+    if (!name || !email) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Name and email are required!';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    errorEl.style.display = 'none';
+
+    try {
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'Sabor Studios',
+          name, phone, email,
+          projectType: project,
+          preferredDate: date,
+          budget, message
+        })
+      });
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Send Inquiry';
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Something went wrong. DM @saborstudios on Instagram!';
+    }
+  }
+
+  // ===== CUSTOM SELECT (Project Type) =====
+  const projectSelect = document.getElementById('projectSelect');
+  const projectSelectTrigger = document.getElementById('projectSelectTrigger');
+  const projectSelectPanel = document.getElementById('projectSelectPanel');
+  const projectSelectLabel = document.getElementById('projectSelectLabel');
+  const projectHiddenInput = document.getElementById('f-project');
+
+  function closeProjectPanel() {
+    projectSelect.classList.remove('open');
+  }
+
+  projectSelectTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    projectSelect.classList.toggle('open');
+  });
+
+  projectSelectPanel.querySelectorAll('.custom-select-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const value = option.dataset.value;
+      projectSelectPanel.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+      projectHiddenInput.value = value;
+      projectSelectLabel.textContent = value || 'Project Type';
+      projectSelectLabel.classList.toggle('placeholder', !value);
+      closeProjectPanel();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!projectSelect.contains(e.target)) {
+      closeProjectPanel();
+    }
+  });
+
+  // ===== WORK LIGHTBOX =====
+  const workLightbox = document.getElementById('workLightbox');
+  const lightboxMedia = document.getElementById('lightboxMedia');
+  const lightboxCat = document.getElementById('lightboxCat');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxSub = document.getElementById('lightboxSub');
+
+  function openLightbox(tile) {
+    const bg = tile.querySelector('.tile-bg');
+    const cat = tile.querySelector('.tile-cat');
+    const title = tile.querySelector('.tile-title');
+    const sub = tile.querySelector('.tile-sub');
+
+    lightboxMedia.style.background = bg ? getComputedStyle(bg).backgroundImage : '';
+    lightboxCat.textContent = cat ? cat.textContent : '';
+    lightboxTitle.textContent = title ? title.textContent : '';
+    lightboxSub.textContent = sub ? sub.textContent : '';
+
+    workLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    workLightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.detail-tile').forEach(tile => {
+    tile.addEventListener('click', () => openLightbox(tile));
+  });
+
+  workLightbox.querySelectorAll('[data-lightbox-close]').forEach(el => {
+    el.addEventListener('click', closeLightbox);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
 </body>
