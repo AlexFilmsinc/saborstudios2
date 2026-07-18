@@ -2788,7 +2788,7 @@
     </div>
 
     <div class="hero-video-slide hero-vertical-crop" data-index="3" data-title="Lil Skies Concert Recap" data-cat="Short Form" data-vimeo-id="1210971700">
-      <iframe data-iframe-src="https://player.vimeo.com/video/1210971700?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=30s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Lil Skies Concert Recap"></iframe>
+      <iframe data-iframe-src="https://player.vimeo.com/video/1210971700?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=15s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Lil Skies Concert Recap"></iframe>
     </div>
 
     <div class="hero-video-slide" data-index="4" data-title="Most Hated" data-cat="Music Video" data-vimeo-id="1210927538">
@@ -4091,6 +4091,7 @@
     if (!frame) return;
     const target = frame.dataset.iframeSrc || '';
     if (!target) return;
+    frame.removeAttribute('src');
     frame.setAttribute('src', target);
   }
   function preloadAllHeroSlides() {
