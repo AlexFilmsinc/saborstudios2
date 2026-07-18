@@ -1608,75 +1608,1191 @@
     .nav-burger { display: flex; }
     section { padding: 90px 24px; }
   }
+
+  body.spa-mode {
+    background: var(--black);
+  }
+
+  #loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #050505;
+    opacity: 1;
+    transition: opacity 0.55s ease;
+  }
+
+  #loader.fading-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #loaderCanStage {
+    position: relative;
+    transition: transform 0.22s ease-out;
+    will-change: transform;
+  }
+
+  .loader-can {
+    position: relative;
+    width: min(34vw, 420px);
+    min-width: 220px;
+    aspect-ratio: 1600 / 1275;
+    transform-origin: center center;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 26px 60px rgba(0,0,0,0.5));
+    overflow: hidden;
+  }
+
+  .loader-can-base,
+  .loader-can-color {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .loader-can-base {
+    filter: grayscale(1) brightness(1.1) contrast(1.05);
+    opacity: 0.82;
+  }
+
+  .loader-can-color {
+    clip-path: inset(0 100% 0 0);
+    animation: loaderColorFill 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+  }
+
+  .loader-can.handoff {
+    transition: transform 1.12s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
+  }
+
+  .loader-can.handoff .loader-can-base {
+    opacity: 0.18;
+    transition: opacity 0.45s ease;
+  }
+
+  @keyframes loaderColorFill {
+    to { clip-path: inset(0 0 0 0); }
+  }
+
+  body.spa-mode nav {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    opacity: 1;
+    animation: none;
+  }
+
+  body.spa-mode nav.solid {
+    background: rgba(10,10,10,0.86);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .page-view {
+    display: none;
+    min-height: 100vh;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .page-view.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .subpage-view {
+    padding-top: 96px;
+  }
+
+  .page-header {
+    padding: 132px 48px 72px;
+    background: var(--black);
+  }
+
+  .page-header-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .page-kicker {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 18px;
+  }
+
+  .page-header h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(54px, 11vw, 132px);
+    line-height: 0.88;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--white);
+  }
+
+  .page-header p {
+    max-width: 660px;
+    margin-top: 22px;
+    color: var(--gray);
+    font-size: clamp(16px, 2vw, 22px);
+    line-height: 1.5;
+  }
+
+  .home-actions {
+    position: absolute;
+    left: 50%;
+    bottom: 88px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 5;
+  }
+
+  .home-actions a,
+  .home-contact-link {
+    border: 1px solid rgba(255,255,255,0.28);
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    font-size: 11px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: rgba(10,10,10,0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-actions a:hover,
+  .home-contact-link:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .home-contact {
+    padding: 96px 48px;
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .home-contact-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+    align-items: end;
+  }
+
+  .home-contact h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(42px, 7vw, 88px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    color: var(--white);
+  }
+
+  .home-contact p {
+    color: var(--gray);
+    line-height: 1.6;
+    margin-top: 18px;
+    max-width: 560px;
+  }
+
+  .home-contact-meta {
+    display: grid;
+    gap: 14px;
+    color: var(--gray);
+    font-size: 14px;
+  }
+
+  .home-contact-meta span {
+    color: var(--white);
+  }
+
+  #navLogo {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 172px;
+    height: 54px;
+    opacity: 1;
+    animation: none;
+  }
+
+  #navLogo img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 18px rgba(0,0,0,0.35));
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+    transition: opacity 0.4s ease, transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  body.spa-mode.loading #navLogo img {
+    opacity: 0;
+    transform: translateZ(0) scale(0.88);
+  }
+
+  body.spa-mode.loader-complete #navLogo img {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+
+  .hero {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hero-video-bg {
+    top: 0;
+    bottom: 0;
+  }
+
+  .hero-video-scrim {
+    background: linear-gradient(180deg, rgba(10,10,10,0.12) 0%, rgba(10,10,10,0.22) 58%, rgba(10,10,10,0.34) 100%);
+  }
+
+  .hero-video-bg::after {
+    content: none;
+  }
+
+  .hero-video-bg .grain,
+  .hero-streak {
+    display: none;
+  }
+
+  .hero-title {
+    text-shadow: 0 10px 30px rgba(0,0,0,0.22);
+    display: none;
+  }
+
+  .hero-now-playing-title,
+  .hero-now-playing-cat,
+  .scroll-cue {
+    text-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  .home-featured {
+    padding-top: 96px;
+  }
+
+  .home-about {
+    padding: 96px 48px;
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .home-about-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .home-about-copy h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(42px, 7vw, 88px);
+    line-height: 0.92;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .home-about-copy p {
+    color: var(--gray);
+    line-height: 1.65;
+    margin-top: 18px;
+    max-width: 620px;
+  }
+
+  .home-about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .home-about-stats .stat-num {
+    font-size: clamp(34px, 5vw, 56px);
+  }
+
+  .home-about-link {
+    margin-top: 28px;
+  }
+
+  .featured-spotlight {
+    padding: 0 48px 96px;
+    background: var(--black);
+  }
+
+  .featured-spotlight-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .featured-spotlight-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 28px;
+    align-items: end;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .featured-spotlight-intro p {
+    color: var(--gray);
+    line-height: 1.6;
+    max-width: 540px;
+  }
+
+  .featured-spotlight-grid {
+    margin-top: 34px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .featured-spotlight-card {
+    min-height: 280px;
+    overflow: hidden;
+  }
+
+  .featured-spotlight-card-hero {
+    grid-column: span 7;
+    min-height: 460px;
+  }
+
+  .featured-spotlight-card-tall {
+    grid-column: span 5;
+    min-height: 460px;
+  }
+
+  .featured-spotlight-card-wide {
+    grid-column: span 7;
+    min-height: 320px;
+  }
+
+  .featured-spotlight-card-standard {
+    grid-column: span 5;
+    min-height: 320px;
+  }
+
+  .featured-spotlight-meta,
+  .featured-spotlight-index {
+    position: relative;
+    z-index: 2;
+  }
+
+  .featured-spotlight-meta {
+    display: grid;
+    gap: 10px;
+    align-self: end;
+  }
+
+  .featured-spotlight-kicker {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .featured-spotlight-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(34px, 4.6vw, 62px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .featured-spotlight-sub {
+    color: rgba(255,255,255,0.74);
+    font-size: 15px;
+  }
+
+  .featured-spotlight-index {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: rgba(255,255,255,0.52);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .portfolio-category {
+    padding: 72px 48px;
+    background: var(--black);
+    display: none;
+  }
+
+  .portfolio-category + .portfolio-category {
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .portfolio-category.active {
+    display: block;
+  }
+
+  .portfolio-category-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .portfolio-category .category-back {
+    display: none;
+  }
+
+  .portfolio-category .category-view-header {
+    margin-bottom: 28px;
+  }
+
+  .portfolio-picker {
+    padding: 0 48px 44px;
+    background: var(--black);
+  }
+
+  .portfolio-picker-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .portfolio-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .portfolio-filter {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: rgba(255,255,255,0.42);
+    padding: 0 0 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    position: relative;
+    transition: color 0.24s ease, transform 0.24s ease;
+  }
+
+  .portfolio-filter::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.24s ease;
+  }
+
+  .portfolio-filter:hover,
+  .portfolio-filter.active {
+    color: var(--white);
+  }
+
+  .portfolio-filter:hover::after,
+  .portfolio-filter.active::after {
+    transform: scaleX(1);
+  }
+
+  .portfolio-filter:hover {
+    transform: translateY(-1px);
+  }
+
+  .portfolio-filter-index {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  .portfolio-filter-label {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(28px, 4.6vw, 54px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .portfolio-picker-note {
+    color: var(--gray);
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .featured-word-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 28px;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .featured-word-item {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--white);
+    text-align: left;
+    display: grid;
+    gap: 8px;
+    padding: 10px 0 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.24s ease, border-color 0.24s ease;
+  }
+
+  .featured-word-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(224,45,45,0.45);
+  }
+
+  .featured-word-item-kicker {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .featured-word-item-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(30px, 4.8vw, 56px);
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .featured-word-item-sub {
+    color: var(--gray);
+    font-size: 14px;
+  }
+
+  .legal-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 48px 96px;
+    color: var(--gray);
+    line-height: 1.75;
+  }
+
+  .legal-content h2 {
+    font-family: 'Anton', sans-serif;
+    color: var(--white);
+    font-size: clamp(26px, 4vw, 42px);
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin: 42px 0 12px;
+  }
+
+  .legal-content p,
+  .legal-content li {
+    font-size: 15px;
+  }
+
+  .legal-content ul {
+    margin: 12px 0 0 20px;
+  }
+
+  .legal-updated {
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .route-active {
+    color: var(--red) !important;
+  }
+
+  .page-header h1 {
+    transform: translateY(18px);
+    opacity: 0;
+    transition: opacity 0.55s ease, transform 0.65s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .page-view.active .page-header h1 {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .category-tile,
+  .detail-tile,
+  .home-contact-link,
+  .nav-contact,
+  .submit-btn {
+    will-change: transform;
+  }
+
+  .category-tile::before,
+  .detail-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(224,45,45,0.28), transparent 34%);
+    transition: opacity 0.25s ease;
+  }
+
+  .category-tile:hover::before,
+  .detail-tile:hover::before {
+    opacity: 1;
+  }
+
+  .category-tile .tile-bg,
+  .detail-tile .tile-bg,
+  .about-portrait-frame img {
+    filter: saturate(0.92) contrast(1.05);
+  }
+
+  .work-lightbox-media {
+    overflow: hidden;
+    background: #090909;
+  }
+
+  .work-lightbox-media iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .work-lightbox-media.has-vimeo {
+    padding: 0;
+    background: #050505;
+  }
+
+  .work-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border: 0;
+    background: rgba(8,8,8,0.72);
+    color: rgba(255,255,255,0.92);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    transition: color 0.24s ease, background 0.24s ease, transform 0.24s ease;
+  }
+
+  .work-lightbox-nav:hover {
+    color: var(--red);
+    background: rgba(8,8,8,0.9);
+  }
+
+  .work-lightbox-nav.prev { left: 18px; }
+  .work-lightbox-nav.next { right: 18px; }
+
+  .work-lightbox-nav svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .tile-video-stack {
+    overflow: hidden;
+  }
+
+  .hero-video-slide iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 177.78vh;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 56.25vw;
+    border: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1.22);
+    transform-origin: center center;
+  }
+
+  @media (min-width: 701px) {
+    .hero-video-slide.hero-vertical-crop iframe {
+      width: 100vw;
+      height: 177.78vw;
+      min-width: 100vw;
+      min-height: 100vh;
+      transform: translate(-50%, -50%) scale(1.03);
+    }
+  }
+
+  .project-viewer {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+    gap: 22px;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .project-viewer-player,
+  .project-viewer-list {
+    background: rgba(8,8,8,0.86);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .project-viewer-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #050505;
+  }
+
+  .project-viewer-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .project-viewer-meta {
+    padding: 18px 18px 20px;
+  }
+
+  .project-viewer-cat,
+  .project-viewer-list-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .project-viewer-title {
+    margin-top: 10px;
+    color: var(--white);
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(28px, 4.2vw, 52px);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .project-viewer-sub {
+    margin-top: 8px;
+    color: var(--gray);
+    font-size: 15px;
+  }
+
+  .project-viewer-list {
+    padding: 16px;
+  }
+
+  .project-viewer-items {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .project-viewer-item {
+    width: 100%;
+    text-align: left;
+    padding: 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--white);
+    transition: border-color 0.24s ease, transform 0.24s ease, background 0.24s ease;
+  }
+
+  .project-viewer-item:hover,
+  .project-viewer-item.active {
+    border-color: rgba(224,45,45,0.65);
+    background: rgba(224,45,45,0.08);
+    transform: translateY(-1px);
+  }
+
+  .project-viewer-item-cat {
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .project-viewer-item-title {
+    margin-top: 8px;
+    font-size: 16px;
+    color: var(--white);
+  }
+
+  .project-viewer-item-sub {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--gray);
+  }
+
+  .photo-gallery {
+    column-count: 3;
+    column-gap: 16px;
+  }
+
+  .photo-tile {
+    display: block;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 0;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    break-inside: avoid;
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    cursor: pointer;
+  }
+
+  .photo-tile img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    transition: transform 0.35s ease, filter 0.35s ease;
+  }
+
+  .photo-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    pointer-events: none;
+    transition: border-color 0.25s ease, opacity 0.25s ease;
+  }
+
+  .photo-tile:hover img {
+    transform: scale(1.018);
+    filter: saturate(1.03) contrast(1.03);
+  }
+
+  .photo-tile:hover::after {
+    border-color: rgba(224,45,45,0.42);
+  }
+
+  .photo-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: none;
+    background:
+      radial-gradient(circle at top, rgba(255,255,255,0.04), transparent 30%),
+      linear-gradient(180deg, rgba(5,5,5,0.92), rgba(0,0,0,0.98));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .photo-lightbox.open {
+    display: block;
+  }
+
+  .photo-lightbox-shell {
+    position: relative;
+    width: min(1460px, calc(100vw - 32px));
+    height: calc(100vh - 32px);
+    margin: 16px auto;
+    padding: 92px 72px 84px;
+  }
+
+  .photo-lightbox-asset {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-lightbox-asset img {
+    max-width: min(74vw, 980px);
+    max-height: calc(100vh - 220px);
+    width: auto;
+    height: auto;
+    border-radius: 22px;
+    box-shadow: 0 28px 90px rgba(0,0,0,0.38);
+  }
+
+  .photo-lightbox-close,
+  .photo-lightbox-nav {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: rgba(255,255,255,0.92);
+    cursor: pointer;
+  }
+
+  .photo-lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 12px;
+    padding: 12px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .photo-lightbox-close:hover,
+  .photo-lightbox-nav:hover {
+    color: var(--red);
+  }
+
+  .photo-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-lightbox-nav.prev { left: 10px; }
+  .photo-lightbox-nav.next { right: 10px; }
+
+  .photo-lightbox-nav svg,
+  .photo-lightbox-close svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .photo-lightbox-meta {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    display: inline-flex;
+    gap: 14px;
+    align-items: center;
+    text-align: center;
+    color: rgba(255,255,255,0.84);
+    font-size: 13px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
+
+  .photo-lightbox-index {
+    color: var(--red);
+  }
+
+  .category-tile:hover .tile-bg,
+  .detail-tile:hover .tile-bg {
+    filter: saturate(1.1) contrast(1.12);
+  }
+
+  .stat-num {
+    text-shadow: 0 0 0 rgba(224,45,45,0);
+    transition: text-shadow 0.35s ease, transform 0.35s ease;
+  }
+
+  .stat-num.counted {
+    text-shadow: 0 0 24px rgba(224,45,45,0.28);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-view,
+    .page-header h1,
+    .category-tile,
+    .detail-tile,
+    .tile-bg,
+    .about-portrait-frame img {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+
+  .start-project-view .call-pill {
+    display: none;
+  }
+
+  .about-portrait-frame {
+    aspect-ratio: 3 / 4;
+    border: 1px solid rgba(224,45,45,0.9);
+    background: #090909;
+  }
+
+  .about-portrait-frame::after {
+    content: none;
+  }
+
+  .about-portrait-frame img {
+    object-position: 50% 34%;
+    transform: scale(1.08);
+  }
+
+  .about-portrait:hover .about-portrait-frame img {
+    transform: scale(1.11);
+  }
+
+  @media (max-width: 700px) {
+    .subpage-view { padding-top: 78px; }
+    .page-header { padding: 94px 24px 52px; }
+    .home-actions {
+      flex-direction: column;
+      width: calc(100% - 48px);
+      bottom: 72px;
+    }
+    .home-contact { padding: 72px 24px; }
+    .home-contact-inner { grid-template-columns: 1fr; }
+    .home-about { padding: 72px 24px; }
+    .home-about-inner { grid-template-columns: 1fr; }
+    .home-about-stats { grid-template-columns: 1fr; }
+    .featured-spotlight { padding: 0 24px 72px; }
+    .featured-spotlight-intro { grid-template-columns: 1fr; }
+    .featured-spotlight-grid { grid-template-columns: 1fr; }
+    .featured-spotlight-card,
+    .featured-spotlight-card-hero,
+    .featured-spotlight-card-tall,
+    .featured-spotlight-card-wide,
+    .featured-spotlight-card-standard { grid-column: span 1; min-height: 300px; }
+    .portfolio-picker { padding: 0 24px 40px; }
+    .portfolio-selector { gap: 12px 16px; }
+    .portfolio-filter-label { font-size: clamp(22px, 9vw, 34px); }
+    .featured-word-selector { grid-template-columns: 1fr; }
+    .portfolio-category { padding: 52px 24px; }
+    .legal-content { padding: 0 24px 72px; }
+    .project-viewer { grid-template-columns: 1fr; padding: 16px; }
+    .photo-gallery { column-count: 2; column-gap: 12px; }
+    .photo-tile { margin-bottom: 12px; border-radius: 14px; }
+    .photo-tile img,
+    .photo-tile::after { border-radius: 14px; }
+    .photo-lightbox-shell {
+      width: calc(100vw - 20px);
+      height: calc(100vh - 20px);
+      margin: 10px auto;
+      padding: 76px 14px 68px;
+    }
+    .work-lightbox-nav.prev { left: 8px; }
+    .work-lightbox-nav.next { right: 8px; }
+    .photo-lightbox-asset img {
+      max-width: calc(100vw - 56px);
+      max-height: calc(100vh - 180px);
+      border-radius: 16px;
+    }
+    .photo-lightbox-nav.prev { left: 0; }
+    .photo-lightbox-nav.next { right: 0; }
+    .photo-lightbox-meta {
+      width: calc(100% - 40px);
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11px;
+    }
+    #navLogo {
+      width: 132px;
+      height: 44px;
+    }
+    #navLogo img {
+      height: 38px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .photo-gallery { column-count: 1; }
+  }
 </style>
 </head>
-<body>
-
+<body class="spa-mode loading">
 <div id="scrollProgress"></div>
-
-<div id="loader">
-  <div id="loader-parallax">
-    <div class="loader-wordmark" id="loaderWordmark">
-      <span class="size-ref">SABOR STUDIOS</span>
-      <div class="fill-layer"><span>SABOR STUDIOS</span></div>
+<div id="loader" aria-hidden="true">
+  <div id="loaderCanStage">
+    <div class="loader-can" id="loaderCan">
+      <img class="loader-can-base" src="assets/sabor-can-nav-logo.png" alt="">
+      <img class="loader-can-color" src="assets/sabor-can-nav-logo.png" alt="">
     </div>
   </div>
 </div>
-
 <nav>
-  <a href="#work" class="nav-item">Featured Work</a>
-  <a href="#work" class="nav-item">Portfolio</a>
+  <a href="#featured-work" class="nav-item">Featured Work</a>
+  <a href="#portfolio" class="nav-item">Portfolio</a>
   <div class="nav-center">
-    <div id="navLogo">SABOR <span class="red">STUDIOS</span></div>
+    <a href="#" id="navLogo" data-route-link aria-label="Sabor Studios home"><img src="assets/sabor-can-nav-logo.png" alt="Sabor Studios"></a>
   </div>
   <div class="nav-group">
     <a href="#about" class="nav-item">About</a>
   </div>
-  <a href="#contact" class="nav-contact nav-far-right">Start a project</a>
+  <a href="#start-project" class="nav-contact nav-far-right">Start a project</a>
   <button class="nav-burger" id="navBurger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
   <div class="mobile-menu-top">
     <div class="mobile-menu-brand">SABOR <span class="red">STUDIOS</span></div>
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
   </div>
   <div class="mobile-menu-links">
-    <a href="#work" class="mobile-menu-link">Featured Work</a>
-    <a href="#work" class="mobile-menu-link">Portfolio</a>
+    <a href="#featured-work" class="mobile-menu-link">Featured Work</a>
+    <a href="#portfolio" class="mobile-menu-link">Portfolio</a>
     <a href="#about" class="mobile-menu-link">About</a>
-    <a href="#contact" class="mobile-menu-link active-link">Start a project</a>
+    <a href="#start-project" class="mobile-menu-link">Start a project</a>
   </div>
 </div>
 
-<section class="hero section-dark">
+<main>
+  <div class="page-view active" data-route="home">
+    <section class="hero section-dark">
   <div class="hero-video-bg" id="heroVideoBg">
-    <div class="hero-video-slide active" data-index="0">
-      <video muted loop playsinline preload="auto" autoplay>
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-      </video>
+    
+    <div class="hero-video-slide active" data-index="0" data-title="Bad Bitches" data-cat="Music Video" data-vimeo-id="1210926889">
+      <iframe src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" data-iframe-src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Bad Bitches"></iframe>
     </div>
-    <div class="hero-video-slide" data-index="1">
-      <video muted loop playsinline preload="none">
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-      </video>
+
+    <div class="hero-video-slide" data-index="1" data-title="99 Problems" data-cat="Music Video" data-vimeo-id="1210927098">
+      <iframe data-iframe-src="https://player.vimeo.com/video/1210927098?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="99 Problems"></iframe>
     </div>
-    <div class="hero-video-slide" data-index="2">
-      <video muted loop playsinline preload="none">
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
-      </video>
+
+    <div class="hero-video-slide hero-vertical-crop" data-index="2" data-title="TY Myers 09.14.24" data-cat="Short Form" data-vimeo-id="1210971769">
+      <iframe data-iframe-src="https://player.vimeo.com/video/1210971769?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=29s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="TY Myers 09.14.24"></iframe>
     </div>
-    <div class="hero-video-slide" data-index="3">
-      <video muted loop playsinline preload="none">
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
-      </video>
+
+    <div class="hero-video-slide hero-vertical-crop" data-index="3" data-title="Lil Skies Concert Recap" data-cat="Short Form" data-vimeo-id="1210971700">
+      <iframe data-iframe-src="https://player.vimeo.com/video/1210971700?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=30s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Lil Skies Concert Recap"></iframe>
     </div>
-    <div class="hero-video-slide" data-index="4">
-      <video muted loop playsinline preload="none">
-        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
-      </video>
+
+    <div class="hero-video-slide" data-index="4" data-title="Most Hated" data-cat="Music Video" data-vimeo-id="1210927538">
+      <iframe data-iframe-src="https://player.vimeo.com/video/1210927538?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=135s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Most Hated"></iframe>
     </div>
     <div class="hero-video-scrim"></div>
     <div class="hero-streak"></div>
@@ -1693,10 +2809,10 @@
 
   <div class="hero-video-progress" id="heroVideoProgress">
     <div class="hero-video-progress-seg" data-go="0"><div class="hero-video-progress-seg-fill"></div></div>
-    <div class="hero-video-progress-seg" data-go="1"><div class="hero-video-progress-seg-fill"></div></div>
-    <div class="hero-video-progress-seg" data-go="2"><div class="hero-video-progress-seg-fill"></div></div>
-    <div class="hero-video-progress-seg" data-go="3"><div class="hero-video-progress-seg-fill"></div></div>
-    <div class="hero-video-progress-seg" data-go="4"><div class="hero-video-progress-seg-fill"></div></div>
+<div class="hero-video-progress-seg" data-go="1"><div class="hero-video-progress-seg-fill"></div></div>
+<div class="hero-video-progress-seg" data-go="2"><div class="hero-video-progress-seg-fill"></div></div>
+<div class="hero-video-progress-seg" data-go="3"><div class="hero-video-progress-seg-fill"></div></div>
+<div class="hero-video-progress-seg" data-go="4"><div class="hero-video-progress-seg-fill"></div></div>
   </div>
 
   <div class="scroll-cue">
@@ -1704,288 +2820,224 @@
     <div class="scroll-cue-line"></div>
   </div>
 </section>
-
-<section id="work" class="section-dark">
+    <section class="section-dark home-featured">
 <div class="section-inner">
   <div class="work-intro">
     <div>
       <div class="section-label">Selected work</div>
-      <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Built for the brands that move culture.</span></h2>
+      <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Built for the artists, brands, and live moments that need direction.</span></h2>
     </div>
-    <div class="work-count reveal-up">Categories <span>[03]</span></div>
+    <div class="work-count reveal-up"><a href="#featured-work" class="home-contact-link" data-route-link>View All Work</a></div>
   </div>
-
   <div class="category-grid">
     <button class="category-tile reveal-scale" data-category="music-videos">
-      <div class="tile-bg"></div>
+      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.72)), radial-gradient(circle at 20% 18%, rgba(224,45,45,0.9), transparent 36%), linear-gradient(135deg, #1a0707 0%, #310909 48%, #090909 100%); background-size: cover; background-position: center;"></div>
       <div class="category-tile-arrow">
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">05 Projects</div>
+        <div class="category-tile-count">07 Projects</div>
         <div class="category-tile-title">Music Videos</div>
       </div>
     </button>
-    <button class="category-tile reveal-scale" data-category="commercials">
-      <div class="tile-bg"></div>
+<button class="category-tile reveal-scale" data-category="commercials">
+      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.78)), linear-gradient(135deg, #101214 0%, #1f2730 44%, #090909 100%); background-size: cover; background-position: center;"></div>
       <div class="category-tile-arrow">
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">05 Projects</div>
+        <div class="category-tile-count">03-05 Projects</div>
         <div class="category-tile-title">Commercials</div>
       </div>
     </button>
-    <button class="category-tile reveal-scale" data-category="photography">
-      <div class="tile-bg" style="background-image: url('photography/heat-index.jpg');"></div>
+<button class="category-tile reveal-scale" data-category="concerts">
+      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.78)), radial-gradient(circle at 68% 18%, rgba(224,45,45,0.78), transparent 30%), linear-gradient(135deg, #150808 0%, #2e0c12 44%, #090909 100%); background-size: cover; background-position: center;"></div>
       <div class="category-tile-arrow">
         <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
       </div>
       <div class="category-tile-info">
-        <div class="category-tile-count">10 Projects</div>
+        <div class="category-tile-count">09 Projects</div>
+        <div class="category-tile-title">Concerts</div>
+      </div>
+    </button>
+<button class="category-tile reveal-scale" data-category="photography">
+      <div class="tile-bg tile-video-stack" style="background:url('photography/Photo1.jpg'); background-size: cover; background-position: center;"></div>
+      <div class="category-tile-arrow">
+        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </div>
+      <div class="category-tile-info">
+        <div class="category-tile-count">16 Frames</div>
         <div class="category-tile-title">Photography</div>
+      </div>
+    </button>
+<button class="category-tile reveal-scale" data-category="events">
+      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.74)), linear-gradient(135deg, #14100d 0%, #332218 45%, #090909 100%); background-size: cover; background-position: center;"></div>
+      <div class="category-tile-arrow">
+        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </div>
+      <div class="category-tile-info">
+        <div class="category-tile-count">03-05 Projects</div>
+        <div class="category-tile-title">Events</div>
+      </div>
+    </button>
+<button class="category-tile reveal-scale" data-category="short-form">
+      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.78)), linear-gradient(135deg, #0e1210 0%, #132d24 44%, #090909 100%); background-size: cover; background-position: center;"></div>
+      <div class="category-tile-arrow">
+        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </div>
+      <div class="category-tile-info">
+        <div class="category-tile-count">09 Projects</div>
+        <div class="category-tile-title">Short Form</div>
       </div>
     </button>
   </div>
 </div>
 </section>
-
-<div class="category-view" id="view-music-videos" data-view="music-videos">
-  <div class="category-view-inner">
-    <button class="category-back" data-back>
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Back
-    </button>
-    <div class="category-view-header">
-      <div class="section-label">Selected work</div>
-      <h2 class="section-heading">Music Videos</h2>
+    <section class="home-about section-dark">
+  <div class="home-about-inner">
+    <div class="about-portrait reveal-scale">
+      <div class="about-portrait-frame">
+        <img src="photography/alex.jpg" alt="Alex Films, Creative Director of Sabor Studios, holding a Canon film camera">
+      </div>
+      <div class="about-portrait-caption"><span class="red">Alex Films</span> — Creative Director</div>
     </div>
-    <div class="detail-grid">
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">01</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Midnight Static</div>
-          <div class="tile-sub">Dir. Alex Films</div>
+    <div class="home-about-copy reveal-left">
+      <div class="section-label">About</div>
+      <h2>Visuals with direction, pace, and taste.</h2>
+      <p>Sabor Studios is led by Creative Director Alex Films, creating music videos, commercials, photography, and visual campaigns for artists, brands, and founders.</p>
+      <div class="home-about-stats">
+        <div>
+          <div class="stat-num"><span class="red count-up" data-count="1000">0</span>+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div>
+          <div class="stat-num"><span class="count-up" data-count="12">0</span></div>
+          <div class="stat-label">Creative Partners</div>
+        </div>
+        <div>
+          <div class="stat-num stat-location">Dallas, <span class="red">Texas</span></div>
+          <div class="stat-label">Based In</div>
         </div>
       </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">02</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Glass House</div>
-          <div class="tile-sub">Dir. Alex Films</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">03</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Neon Static</div>
-          <div class="tile-sub">Dir. Alex Films</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">04</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">After Hours</div>
-          <div class="tile-sub">Dir. Alex Films</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">05</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Slow Burn</div>
-          <div class="tile-sub">Dir. Alex Films</div>
-        </div>
+      <div class="home-about-link">
+        <a href="#about" class="home-contact-link" data-route-link>More About</a>
       </div>
     </div>
   </div>
-</div>
-
-<div class="category-view" id="view-commercials" data-view="commercials">
-  <div class="category-view-inner">
-    <button class="category-back" data-back>
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Back
-    </button>
-    <div class="category-view-header">
-      <div class="section-label">Selected work</div>
-      <h2 class="section-heading">Commercials</h2>
+</section>
+    <section class="home-contact section-dark">
+  <div class="home-contact-inner">
+    <div>
+      <div class="section-label">Get in touch</div>
+      <h2>Ready when the idea is.</h2>
+      <p>Send the project details, timeline, and budget when you're ready. The full inquiry form lives on the Start Project page.</p>
     </div>
-    <div class="detail-grid">
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">01</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
-          <div class="tile-title">Velocity Auto</div>
-          <div class="tile-sub">30s Spot</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">02</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
-          <div class="tile-title">Northline Apparel</div>
-          <div class="tile-sub">Brand Film</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">03</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
-          <div class="tile-title">Heritage Coffee Co.</div>
-          <div class="tile-sub">30s Spot</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">04</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
-          <div class="tile-title">Lonestar Fitness</div>
-          <div class="tile-sub">Brand Film</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg"></div>
-        <div class="tile-num">05</div>
-        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
-          <div class="tile-title">Skyline Realty</div>
-          <div class="tile-sub">15s Spot</div>
-        </div>
-      </div>
+    <div class="home-contact-meta">
+      <div><span>Based in</span> Dallas, Texas</div>
+      <div><span>Services</span> Music videos, commercials, concerts, events, short form, photography</div>
+      <a href="#start-project" class="home-contact-link" data-route-link>Start a Project</a>
     </div>
   </div>
-</div>
-
-<div class="category-view" id="view-photography" data-view="photography">
-  <div class="category-view-inner">
-    <button class="category-back" data-back>
-      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-      Back
-    </button>
-    <div class="category-view-header">
-      <div class="section-label">Selected work</div>
-      <h2 class="section-heading">Photography</h2>
-    </div>
-    <div class="detail-grid">
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/heat-index.jpg');"></div>
-        <div class="tile-num">01</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Heat Index</div>
-          <div class="tile-sub">Editorial Series</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/founders-series.jpg');"></div>
-        <div class="tile-num">02</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Founders Series</div>
-          <div class="tile-sub">Portrait Campaign</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/golden-hour.jpg');"></div>
-        <div class="tile-num">03</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Golden Hour</div>
-          <div class="tile-sub">Editorial Series</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/concrete-bloom.jpg');"></div>
-        <div class="tile-num">04</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Concrete Bloom</div>
-          <div class="tile-sub">Lifestyle Campaign</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/night-market.jpg');"></div>
-        <div class="tile-num">05</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Night Market</div>
-          <div class="tile-sub">Editorial Series</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/studio-sessions.jpg');"></div>
-        <div class="tile-num">06</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Studio Sessions</div>
-          <div class="tile-sub">Portrait Campaign</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/red-static.jpg');"></div>
-        <div class="tile-num">07</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Red Static</div>
-          <div class="tile-sub">Editorial Series</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/backstage.jpg');"></div>
-        <div class="tile-num">08</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Backstage</div>
-          <div class="tile-sub">Behind the Scenes</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/lowlight.jpg');"></div>
-        <div class="tile-num">09</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Lowlight</div>
-          <div class="tile-sub">Editorial Series</div>
-        </div>
-      </div>
-      <div class="detail-tile">
-        <div class="tile-bg" style="background-image: url('photography/afterglow.jpg');"></div>
-        <div class="tile-num">10</div>
-        <div class="tile-info">
-          <div class="tile-cat">Photography</div>
-          <div class="tile-title">Afterglow</div>
-          <div class="tile-sub">Lifestyle Campaign</div>
-        </div>
-      </div>
-    </div>
+</section>
   </div>
-</div>
 
-<div class="about-strip" id="about">
+  <div class="page-view subpage-view" data-route="featured-work">
+    <section class="page-header section-dark">
+  <div class="page-header-inner">
+    <div class="page-kicker">Sabor Studios</div>
+    <h1>Featured Work</h1>
+    <p>A focused look at the categories Sabor Studios builds around: music videos, commercials, and photography.</p>
+  </div>
+</section>
+    <section class="portfolio-picker section-dark">
+  <div class="portfolio-picker-inner">
+    <div class="portfolio-selector featured-word-selector">
+      <button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="6">
+    <span class="featured-word-item-kicker">Music Video</span>
+    <span class="featured-word-item-title">Bad Bitches</span>
+    <span class="featured-word-item-sub">JLifestyle & FlashLewis</span>
+  </button>
+<button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="0">
+    <span class="featured-word-item-kicker">Music Video</span>
+    <span class="featured-word-item-title">Right Now</span>
+    <span class="featured-word-item-sub">Ahmeel</span>
+  </button>
+<button class="featured-word-item" type="button" data-featured-category="concerts" data-featured-index="7">
+    <span class="featured-word-item-kicker">Concert</span>
+    <span class="featured-word-item-title">GroupLove Concert</span>
+    <span class="featured-word-item-sub">Concert Recap</span>
+  </button>
+<button class="featured-word-item" type="button" data-featured-category="photography" data-featured-index="2">
+    <span class="featured-word-item-kicker">Photography</span>
+    <span class="featured-word-item-title">Photo 03</span>
+    <span class="featured-word-item-sub">Photography</span>
+  </button>
+<button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="1">
+    <span class="featured-word-item-kicker">Music Video</span>
+    <span class="featured-word-item-title">Hurt</span>
+    <span class="featured-word-item-sub">Terry Curtis</span>
+  </button>
+<button class="featured-word-item" type="button" data-featured-category="photography" data-featured-index="13">
+    <span class="featured-word-item-kicker">Photography</span>
+    <span class="featured-word-item-title">Photo 14</span>
+    <span class="featured-word-item-sub">Photography</span>
+  </button>
+    </div>
+    <div class="portfolio-picker-note">Choose a featured piece to open it directly.</div>
+  </div>
+</section>
+  </div>
+
+  <div class="page-view subpage-view" data-route="portfolio">
+    <section class="page-header section-dark">
+  <div class="page-header-inner">
+    <div class="page-kicker">Sabor Studios</div>
+    <h1>Portfolio</h1>
+    <p>Browse the project archive across music videos, commercial work, and photography.</p>
+  </div>
+</section>
+    <section class="portfolio-picker section-dark">
+  <div class="portfolio-picker-inner">
+    <div class="portfolio-selector">
+      <button class="portfolio-filter" data-portfolio-filter="music-videos">
+    <span class="portfolio-filter-index">07</span>
+    <span class="portfolio-filter-label">Music Videos</span>
+  </button>
+<button class="portfolio-filter" data-portfolio-filter="commercials">
+    <span class="portfolio-filter-index">03-05</span>
+    <span class="portfolio-filter-label">Commercials</span>
+  </button>
+<button class="portfolio-filter" data-portfolio-filter="concerts">
+    <span class="portfolio-filter-index">09</span>
+    <span class="portfolio-filter-label">Concerts</span>
+  </button>
+<button class="portfolio-filter" data-portfolio-filter="photography">
+    <span class="portfolio-filter-index">16 Frames</span>
+    <span class="portfolio-filter-label">Photography</span>
+  </button>
+<button class="portfolio-filter" data-portfolio-filter="events">
+    <span class="portfolio-filter-index">03-05</span>
+    <span class="portfolio-filter-label">Events</span>
+  </button>
+<button class="portfolio-filter" data-portfolio-filter="short-form">
+    <span class="portfolio-filter-index">09</span>
+    <span class="portfolio-filter-label">Short Form</span>
+  </button>
+    </div>
+    <div class="portfolio-picker-note">Choose a category to open the full project set.</div>
+  </div>
+</section>
+  </div>
+
+  <div class="page-view subpage-view" data-route="about">
+    <section class="page-header section-dark">
+  <div class="page-header-inner">
+    <div class="page-kicker">Sabor Studios</div>
+    <h1>About</h1>
+    <p>Led by Alex Films, Sabor Studios creates intentional visuals for artists, brands, and founders.</p>
+  </div>
+</section>
+    <div class="about-strip" id="about">
   <div class="about-portrait reveal-scale">
     <div class="about-portrait-frame">
       <img src="photography/alex.jpg" alt="Alex Films, Creative Director of Sabor Studios, holding a Canon film camera">
@@ -1998,12 +3050,12 @@
   </div>
   <div class="stat-row reveal-right">
     <div>
-      <div class="stat-num"><span class="red count-up" data-count="50">0</span>+</div>
+      <div class="stat-num"><span class="red count-up" data-count="1000">0</span>+</div>
       <div class="stat-label">Projects Shipped</div>
     </div>
     <div>
       <div class="stat-num"><span class="count-up" data-count="12">0</span></div>
-      <div class="stat-label">Brand Partners</div>
+      <div class="stat-label">Creative Partners</div>
     </div>
     <div>
       <div class="stat-num stat-location">Dallas, <span class="red">Texas</span></div>
@@ -2011,8 +3063,10 @@
     </div>
   </div>
 </div>
+  </div>
 
-<section class="contact-section section-dark" id="contact">
+  <div class="page-view subpage-view" data-route="start-project">
+    <section class="contact-section section-dark" id="contact">
 <div class="section-inner">
   <div class="section-label">Get in touch</div>
   <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Let's make something worth watching.</span></h2>
@@ -2088,6 +3142,526 @@
   </div>
 </div>
 </section>
+  </div>
+
+  <div class="page-view subpage-view" data-route="privacy-policy">
+    <section class="page-header section-dark">
+  <div class="page-header-inner">
+    <div class="page-kicker">Sabor Studios</div>
+    <h1>Privacy Policy</h1>
+    <p>How Sabor Studios handles inquiry details, project communication, and website information.</p>
+  </div>
+</section>
+<section class="legal-content section-dark">
+  <div class="legal-updated">Last updated July 17, 2026</div>
+
+  <h2>Information We Collect</h2>
+  <p>When you submit a project inquiry, Sabor Studios may collect your name, email address, phone number, project type, preferred date, budget range, and any project details you choose to include.</p>
+  <p>The website may also use basic technical information, such as browser type, device type, and page interaction data, to understand how visitors use the site and improve the experience.</p>
+
+  <h2>How We Use Information</h2>
+  <p>Information submitted through the site is used to respond to inquiries, discuss potential projects, prepare estimates, schedule calls or shoots, and manage client communication.</p>
+  <p>Sabor Studios does not sell personal information.</p>
+
+  <h2>Project Materials</h2>
+  <p>If you send references, briefs, photos, videos, logos, music, or other materials, those files are used only to evaluate, plan, produce, or deliver the requested project unless another use is agreed to in writing.</p>
+
+  <h2>Third-Party Services</h2>
+  <p>Inquiry forms, email, social media platforms, analytics tools, video embeds, or scheduling tools may process information according to their own privacy practices. Sabor Studios is not responsible for the privacy practices of third-party websites or services.</p>
+
+  <h2>Data Retention</h2>
+  <p>Inquiry and project information may be kept as long as needed for communication, project records, business operations, tax records, or legal requirements.</p>
+
+  <h2>Your Choices</h2>
+  <p>You may request that Sabor Studios update or delete your inquiry information by contacting the studio directly. Some records may need to be retained where required for business, accounting, or legal reasons.</p>
+
+  <h2>Contact</h2>
+  <p>For privacy questions, contact Sabor Studios through the Start Project form or official social channels.</p>
+</section>
+  </div>
+
+  <div class="page-view subpage-view" data-route="terms-of-service">
+    <section class="page-header section-dark">
+  <div class="page-header-inner">
+    <div class="page-kicker">Sabor Studios</div>
+    <h1>Terms of Service</h1>
+    <p>The basic terms for using this website and starting project conversations with Sabor Studios.</p>
+  </div>
+</section>
+<section class="legal-content section-dark">
+  <div class="legal-updated">Last updated July 17, 2026</div>
+
+  <h2>Use of This Website</h2>
+  <p>This website is provided to showcase Sabor Studios work, services, and contact options. By using the site, you agree not to misuse it, interfere with its operation, copy protected materials without permission, or submit false or harmful information.</p>
+
+  <h2>Inquiries Are Not Bookings</h2>
+  <p>Submitting a form or message does not confirm a booking, hold a date, or create a client relationship. A project is only confirmed after scope, pricing, schedule, payment terms, and deliverables are agreed to in writing.</p>
+
+  <h2>Estimates and Availability</h2>
+  <p>Any pricing, budget discussion, timeline, or availability shared before a written agreement is an estimate and may change based on project scope, location, crew needs, revisions, licensing, usage, or scheduling.</p>
+
+  <h2>Client Responsibilities</h2>
+  <p>Clients are responsible for providing accurate project information, required permissions, locations, releases, products, brand assets, music rights, and any materials needed for production unless otherwise agreed in writing.</p>
+
+  <h2>Creative Work and Usage</h2>
+  <p>Final deliverables, raw footage, project files, edits, photos, treatments, concepts, and usage rights are governed by the written project agreement. Unless otherwise stated, Sabor Studios retains rights to its creative work and may display completed work in its portfolio, reels, website, and social media.</p>
+
+  <h2>Website Content</h2>
+  <p>Text, visuals, branding, layouts, photos, videos, and design elements on this website may not be copied, reused, resold, or redistributed without permission.</p>
+
+  <h2>No Guarantees</h2>
+  <p>The website is provided as-is. Sabor Studios does not guarantee that the site will always be available, error-free, or compatible with every device or browser.</p>
+
+  <h2>Updates</h2>
+  <p>Sabor Studios may update these terms at any time. Continued use of the website after updates means you accept the revised terms.</p>
+
+  <h2>Contact</h2>
+  <p>For questions about these terms, contact Sabor Studios through the Start Project form or official social channels.</p>
+</section>
+  </div>
+
+  <div class="category-view" id="view-music-videos" data-view="music-videos">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Music Videos</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927512" data-vimeo-title="Right Now-Ahmeel" data-vimeo-sub="Ahmeel" data-vimeo-category="music-videos" data-home-featured="true">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985774-54ca4228f876bb33d6a9cdc21003c8679a1d359659bac7c23a40957ac29921b3-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">01</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Right Now</div>
+          <div class="tile-sub">Ahmeel</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927558" data-vimeo-title="Hurt-Terry Curtis" data-vimeo-sub="Terry Curtis" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984112-246bca1e39d65e305cf9086fb6139738b2a6ebfd4ccecfd63cf8847d44400ed7-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">02</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Hurt</div>
+          <div class="tile-sub">Terry Curtis</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927528" data-vimeo-title="_What Sinners Do_- JRU" data-vimeo-sub="JRU" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983835-075295a4ce4e7ff960b923d7dca4743c90dcaedd5bc284bc2a29385093ae78ea-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">What Sinners Do</div>
+          <div class="tile-sub">JRU</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927538" data-vimeo-title="Most Hated- Yung Dubbb" data-vimeo-sub="Yung Dubbb" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Most Hated</div>
+          <div class="tile-sub">Yung Dubbb</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927098" data-vimeo-title="Jrip - 99 Problems" data-vimeo-sub="Jrip" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">99 Problems</div>
+          <div class="tile-sub">Jrip</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926890" data-vimeo-title="Mhmmm”x”2- YungDubbb" data-vimeo-sub="YungDubbb" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982476-b35e0bfafd1fc3015fc3e94d993e5b159a612dd6745e0339d87770c997fc76d1-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">06</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Mhmmm x2</div>
+          <div class="tile-sub">YungDubbb</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926889" data-vimeo-title="JLifestyle & FlashLewis - Bad Bitches (Official Music Video)" data-vimeo-sub="JLifestyle & FlashLewis" data-vimeo-category="music-videos">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">07</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Music Video</div>
+          <div class="tile-title">Bad Bitches</div>
+          <div class="tile-sub">JLifestyle & FlashLewis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="category-view" id="view-commercials" data-view="commercials">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Commercials</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #101214 0%, #29333e 44%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">01</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Velocity Auto</div>
+          <div class="tile-sub">Brand Spot</div>
+        </div>
+      </div>
+<div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #111111 0%, #262626 46%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">02</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Northline Apparel</div>
+          <div class="tile-sub">Campaign Film</div>
+        </div>
+      </div>
+<div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #0f1113 0%, #212933 50%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Commercial</div>
+          <div class="tile-title">Upload Coming Soon</div>
+          <div class="tile-sub">Next Commercial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="category-view" id="view-concerts" data-view="concerts">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Concerts</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929525" data-vimeo-title="PoloG Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985514-b86bc76ae65ee5dd969a63d9f2522603fc9184d5cc4d18eefd32f701436dadce-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">01</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">PoloG Concert Recap</div>
+          <div class="tile-sub">Concert Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929170" data-vimeo-title="Key Glock 10-16-21" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985657-ca406c5224f1f851b838df8883f1084f360bd8c1370241eafe04922e57f3fe7f-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">02</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">Key Glock 10-16-21</div>
+          <div class="tile-sub">Concert Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929292" data-vimeo-title="No Tolerance Lake Day 04-24-21" data-vimeo-sub="04-24-21" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985546-b7ce16b266c9691c4eca3ef588d27ef2069d6905b8a1ca36c9ce79f07af50a9a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">No Tolerance Lake Day</div>
+          <div class="tile-sub">04-24-21</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929424" data-vimeo-title="Polo G Concert (09-20-19)" data-vimeo-sub="09-20-19" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985223-a0e23839e5f3354a6013fdd7029413f99b784bf5b3ffef0762c9b3d5b5b63dd7-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">Polo G Concert</div>
+          <div class="tile-sub">09-20-19</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929165" data-vimeo-title="IMANBEK x NLE CHOPPA 10.28.22" data-vimeo-sub="10.28.22" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985117-2d2ca747371fe8fdde51be836e5998eb8257c280352a3eac374def214df9b3c5-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">IMANBEK x NLE CHOPPA</div>
+          <div class="tile-sub">10.28.22</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928471" data-vimeo-title="Bankrol Hayden 10-30-21 V1" data-vimeo-sub="10-30-21 V1" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984973-d4e4d15ff3c9da556e38fe4fd0cbf5b67717396db769f82d2d41de7a26eea318-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">06</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">Bankrol Hayden</div>
+          <div class="tile-sub">10-30-21 V1</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928889" data-vimeo-title="Heaven and Hell Event Recap" data-vimeo-sub="Event Recap" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984773-4972dd4ceb9241d9e7827d32cf575c3bacfdac8ebaffbf2f06fda7e915e3420a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">07</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">Heaven and Hell</div>
+          <div class="tile-sub">Event Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928816" data-vimeo-title="GroupLove Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984770-0ee0617aec60647f4c6739dcd3aecf236598a0a72ff4fb47695267a227a626c0-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">08</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">GroupLove Concert</div>
+          <div class="tile-sub">Concert Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928668" data-vimeo-title="DJ Trek 01.14.23" data-vimeo-sub="01.14.23" data-vimeo-category="concerts">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984330-931eb036b9143340fa5c1ef7a9dc975d7c329a01692043b5bc5e7faf5cb7a100-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">09</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Concert</div>
+          <div class="tile-title">DJ Trek</div>
+          <div class="tile-sub">01.14.23</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="category-view" id="view-photography" data-view="photography">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Photography</h2>
+    </div>
+    <div class="photo-gallery">
+      <button class="photo-tile feature" type="button" data-photo-gallery="photography" data-photo-index="0" data-photo-title="Photo 01" data-photo-sub="Photography">
+        <img src="photography/Photo1.jpg" alt="Photo 01" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="1" data-photo-title="Photo 02" data-photo-sub="Photography">
+        <img src="photography/Photo2.jpg" alt="Photo 02" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="2" data-photo-title="Photo 03" data-photo-sub="Photography">
+        <img src="photography/Photo3.jpg" alt="Photo 03" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="3" data-photo-title="Photo 04" data-photo-sub="Photography">
+        <img src="photography/Photo4.jpg" alt="Photo 04" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="4" data-photo-title="Photo 05" data-photo-sub="Photography">
+        <img src="photography/Photo5.jpg" alt="Photo 05" loading="lazy">
+      </button>
+<button class="photo-tile tall" type="button" data-photo-gallery="photography" data-photo-index="5" data-photo-title="Photo 06" data-photo-sub="Photography">
+        <img src="photography/Photo6.jpg" alt="Photo 06" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="6" data-photo-title="Photo 07" data-photo-sub="Photography">
+        <img src="photography/Photo7.jpg" alt="Photo 07" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="7" data-photo-title="Photo 08" data-photo-sub="Photography">
+        <img src="photography/Photo8.jpg" alt="Photo 08" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="8" data-photo-title="Photo 09" data-photo-sub="Photography">
+        <img src="photography/Photo9.jpg" alt="Photo 09" loading="lazy">
+      </button>
+<button class="photo-tile wide" type="button" data-photo-gallery="photography" data-photo-index="9" data-photo-title="Photo 10" data-photo-sub="Photography">
+        <img src="photography/Photo10.jpg" alt="Photo 10" loading="lazy">
+      </button>
+<button class="photo-tile tall" type="button" data-photo-gallery="photography" data-photo-index="10" data-photo-title="Photo 11" data-photo-sub="Photography">
+        <img src="photography/Photo11.jpg" alt="Photo 11" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="11" data-photo-title="Photo 12" data-photo-sub="Photography">
+        <img src="photography/Photo12.jpg" alt="Photo 12" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="12" data-photo-title="Photo 13" data-photo-sub="Photography">
+        <img src="photography/Photo13.jpg" alt="Photo 13" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="13" data-photo-title="Photo 14" data-photo-sub="Photography">
+        <img src="photography/Photo14.jpg" alt="Photo 14" loading="lazy">
+      </button>
+<button class="photo-tile " type="button" data-photo-gallery="photography" data-photo-index="14" data-photo-title="Photo 15" data-photo-sub="Photography">
+        <img src="photography/Photo15.jpg" alt="Photo 15" loading="lazy">
+      </button>
+<button class="photo-tile tall" type="button" data-photo-gallery="photography" data-photo-index="15" data-photo-title="Photo 16" data-photo-sub="Photography">
+        <img src="photography/Photo16.jpg" alt="Photo 16" loading="lazy">
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="category-view" id="view-events" data-view="events">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Events</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #14100d 0%, #3c2415 45%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">01</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Event</div>
+          <div class="tile-title">Bid Day Recap</div>
+          <div class="tile-sub">Campus Event Film</div>
+        </div>
+      </div>
+<div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #161110 0%, #2d1d1a 50%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">02</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Event</div>
+          <div class="tile-title">Dance Class Recap</div>
+          <div class="tile-sub">Studio Event Edit</div>
+        </div>
+      </div>
+<div class="detail-tile">
+        <div class="tile-bg" style="linear-gradient(135deg, #17120f 0%, #38261a 50%, #090909 100%); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Event</div>
+          <div class="tile-title">Upload Coming Soon</div>
+          <div class="tile-sub">Next Event Recap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="category-view" id="view-short-form" data-view="short-form">
+  <div class="category-view-inner">
+    <button class="category-back" data-back>
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back
+    </button>
+    <div class="category-view-header">
+      <h2 class="section-heading">Short Form</h2>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971766" data-vimeo-title="SouljaBoy TikTok 2" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037525-39fe083acd5afeed09e6fd0eab0c361babbe5abc2992c7a7d7e32f2a05199ce9-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">01</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">SouljaBoy TikTok 2</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971769" data-vimeo-title="TY Myers 09.14.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037506-9159bad7412d3f97c6e353aa127bd0f3468318f161d74bcd6c75922f0ad0cc85-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">02</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">TY Myers 09.14.24</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971658" data-vimeo-title="DJ Trek (Vertical)" data-vimeo-sub="Vertical" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037453-9ae926d097806dc47cbfd36f9e68e1f91ba9143fe0abb021a02feec0a3f4dcda-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">03</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">DJ Trek</div>
+          <div class="tile-sub">Vertical</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971806" data-vimeo-title="YBN Nahmir Recap 10.31.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037507-4d15be1102c308e9a8741680e463cfd54d33193b4fc859fed3621caf7ea2fcf4-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">04</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">YBN Nahmir Recap 10.31.24</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971772" data-vimeo-title="Waka Flocka x Tay Money Concert 03.15.25" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037495-338a90340cc2ef4b28b92b643372cf1d3adc41cab000a719140cfcc7c4fac491-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">05</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">Waka Flocka x Tay Money Concert 03.15.25</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971657" data-vimeo-title="DJ Exile 06.09.23 Video Recap 12.01.11 AM" data-vimeo-sub="Video Recap" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037473-1797ad69bef7a43c99be61e3ae617ae60388387eb32c43a81e923a0d9f9b16de-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">06</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">DJ Exile 06.09.23</div>
+          <div class="tile-sub">Video Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971700" data-vimeo-title="Lil Skies Concert Recap 11.04.23" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037463-a167d1b4e9b878d6de80239f49f18fe9473a80331b48b888368eff110372bf18-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">07</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">Lil Skies Concert Recap 11.04.23</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971656" data-vimeo-title="DJ WetLi 06.16.23 Video Recap" data-vimeo-sub="Video Recap" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037448-b5b6fff355e3d3e21ce5d6ac86f10dafcf8a1382a6704dd4b16a38ad7cded38a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">08</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">DJ WetLi 06.16.23</div>
+          <div class="tile-sub">Video Recap</div>
+        </div>
+      </div>
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971659" data-vimeo-title="JamFest 04.07.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+        <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037373-3afc56d990b1e8a1022a01431584d9c87302fb32fabb847fe995a99e323b56cf-d_1280?region=us'); background-size: cover; background-position: center;"></div>
+        <div class="tile-num">09</div>
+        <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="tile-info">
+          <div class="tile-cat">Short Form</div>
+          <div class="tile-title">JamFest 04.07.24</div>
+          <div class="tile-sub">Short Form</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -2099,9 +3673,9 @@
       <div class="reveal-up">
         <div class="footer-col-title">Sitemap</div>
         <div class="footer-links">
-          <a href="#work">Work</a>
+          <a href="#featured-work">Work</a>
           <a href="#about">About</a>
-          <a href="#contact">Start a Project</a>
+          <a href="#start-project">Start a Project</a>
         </div>
       </div>
       <div class="reveal-up">
@@ -2126,13 +3700,12 @@
     <div class="footer-bottom">
       <span>© 2020 Sabor Studios LLC. All rights reserved.</span>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="#privacy-policy">Privacy Policy</a>
+        <a href="#terms-of-service">Terms of Service</a>
       </div>
     </div>
   </div>
 </footer>
-
 <div class="call-pill" id="callPill">
   <div class="call-pill-socials">
     <a href="https://instagram.com/saborstudios" target="_blank" rel="noopener" aria-label="Instagram">
@@ -2149,17 +3722,22 @@
     </a>
   </div>
   <div class="call-pill-divider"></div>
-  <a href="#contact" class="call-pill-cta">
+  <a href="#start-project" class="call-pill-cta">
     <span class="call-pill-dot"></span>
     Start a project
   </a>
 </div>
-
 <div class="work-lightbox" id="workLightbox">
   <div class="work-lightbox-backdrop" data-lightbox-close></div>
   <button class="work-lightbox-close" data-lightbox-close aria-label="Close">&times;</button>
   <div class="work-lightbox-card">
+    <button class="work-lightbox-nav prev" type="button" data-video-prev aria-label="Previous video">
+      <svg viewBox="0 0 24 24"><path d="M15 18 9 12l6-6"/></svg>
+    </button>
     <div class="work-lightbox-media" id="lightboxMedia"></div>
+    <button class="work-lightbox-nav next" type="button" data-video-next aria-label="Next video">
+      <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
     <div class="work-lightbox-info">
       <div class="work-lightbox-cat" id="lightboxCat"></div>
       <div class="work-lightbox-title" id="lightboxTitle"></div>
@@ -2167,96 +3745,137 @@
     </div>
   </div>
 </div>
-
+<div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+  <div class="photo-lightbox-shell">
+    <button class="photo-lightbox-close" type="button" data-photo-close aria-label="Close photography viewer">
+      Close
+    </button>
+    <button class="photo-lightbox-nav prev" type="button" data-photo-prev aria-label="Previous photo">
+      <svg viewBox="0 0 24 24"><path d="M15 18 9 12l6-6"/></svg>
+    </button>
+    <div class="photo-lightbox-asset">
+      <img id="photoLightboxImage" alt="">
+    </div>
+    <button class="photo-lightbox-nav next" type="button" data-photo-next aria-label="Next photo">
+      <svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+    <div class="photo-lightbox-meta">
+      <span class="photo-lightbox-index" id="photoLightboxIndex"></span>
+      <span id="photoLightboxTitle"></span>
+    </div>
+  </div>
+</div>
 <script>
-  const heroTitle = document.getElementById('heroTitle');
-  const loader = document.getElementById('loader');
-  const loaderParallax = document.getElementById('loader-parallax');
-  const loaderWordmark = document.getElementById('loaderWordmark');
-  let parallaxEnabled = true;
+(() => {
+  const q = (sel, root = document) => root.querySelector(sel);
+  const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const routes = new Set(['home', 'featured-work', 'portfolio', 'about', 'start-project', 'privacy-policy', 'terms-of-service']);
 
-  document.addEventListener('mousemove', (e) => {
-    if (!parallaxEnabled) return;
-    const x = (e.clientX / window.innerWidth - 0.5) * 24;
-    const y = (e.clientY / window.innerHeight - 0.5) * 24;
-    loaderParallax.style.transform = `translate(${x}px, ${y}px)`;
-  });
-
-  const FILL_DELAY = 150;
-  const FILL_DURATION = 1500;
-  const HOLD_DURATION = 350;
-  const GROW_DURATION = 1100;
-  const CROSSFADE_DURATION = 700;
-
-  const GROW_START = FILL_DELAY + FILL_DURATION + HOLD_DURATION;
-
-  setTimeout(() => {
-    parallaxEnabled = false;
-
-    // The loader sits at exact screen-center, but the real hero title sits
-    // slightly above center (since the tagline + scroll cue share the same
-    // centered flex column below it). Measure the real gap and nudge the
-    // loader to that exact spot before growing, so it lands precisely on
-    // top of the hero title instead of drifting onto it at the last second.
-    const loaderRect = loaderWordmark.getBoundingClientRect();
-    const loaderCenterY = loaderRect.top + loaderRect.height / 2;
-    const heroTitleRect = heroTitle.getBoundingClientRect();
-    const heroTitleCenterY = heroTitleRect.top + heroTitleRect.height / 2;
-    const verticalCorrection = heroTitleCenterY - loaderCenterY;
-
-    loaderParallax.style.transform = `translate(0px, ${verticalCorrection}px)`;
-    loaderWordmark.classList.add('growing');
-    loader.classList.add('fading-bg');
-
-    // Crossfade begins slightly before growth finishes, so the handoff
-    // feels continuous rather than a hard cut once growth completes.
-    setTimeout(() => {
-      heroTitle.classList.add('visible');
-      loader.classList.add('fading-out');
-    }, GROW_DURATION - 250);
-
-    setTimeout(() => {
-      loader.style.display = 'none';
-      heroTitle.style.transition = 'none';
-    }, GROW_DURATION - 250 + CROSSFADE_DURATION);
-
-  }, GROW_START);
-
-  // ===== SCROLL REVEAL =====
-  const REVEAL_SELECTOR = '.reveal-up, .reveal-scale, .reveal-left, .reveal-right, .reveal-line';
-
-  const groupCounters = new Map();
-  function getStaggerIndex(el) {
-    const parent = el.parentElement;
-    if (!groupCounters.has(parent)) groupCounters.set(parent, 0);
-    const idx = groupCounters.get(parent);
-    groupCounters.set(parent, idx + 1);
-    return idx;
+  function routeFromHash() {
+    const raw = window.location.hash.replace(/^#/, '');
+    if (!raw) return 'home';
+    const top = raw.split('/')[0];
+    return routes.has(top) ? top : 'home';
   }
 
-  document.querySelectorAll(REVEAL_SELECTOR).forEach(el => {
-    const idx = getStaggerIndex(el);
-    el.style.transitionDelay = (idx * 0.08) + 's';
+  function setRoute(route) {
+    qa('.page-view').forEach(view => {
+      view.classList.toggle('active', view.dataset.route === route);
+    });
+    document.body.classList.toggle('start-project-view', route === 'start-project');
+    qa('[data-route-link], nav a, .mobile-menu-link, footer a, .call-pill-cta').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      const linkRoute = href.replace(/^#/, '').split('/')[0] || 'home';
+      link.classList.toggle('route-active', linkRoute === route && href.startsWith('#'));
+    });
+    const nav = q('nav');
+    if (nav) nav.classList.toggle('solid', route !== 'home');
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      triggerActiveViewEffects();
+      updateNavTheme();
+    });
+    updateCallPill();
+    updateScrollProgress();
+  }
+
+  window.addEventListener('hashchange', () => {
+    const route = routeFromHash();
+    setRoute(route);
+    const categoryMatch = window.location.hash.match(/^#(featured-work|portfolio)\/(.+)$/);
+    if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
   });
 
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        revealObserver.unobserve(entry.target);
-      }
+  const loader = q('#loader');
+  const loaderParallax = q('#loaderCanStage');
+  const loaderWordmark = q('#loaderCan');
+  const navLogo = q('#navLogo');
+  const navLogoImg = q('#navLogo img');
+  const heroTitle = q('#heroTitle');
+  let parallaxEnabled = Boolean(loader && loaderParallax);
+
+  if (loader && loaderParallax && loaderWordmark && navLogo) {
+    document.addEventListener('mousemove', (e) => {
+      if (!parallaxEnabled) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 24;
+      const y = (e.clientY / window.innerHeight - 0.5) * 24;
+      loaderParallax.style.transform = `translate(${x}px, ${y}px)`;
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    setTimeout(() => {
+      parallaxEnabled = false;
+      loaderParallax.style.transform = 'translate(0px, 0px)';
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          const loaderRect = loaderWordmark.getBoundingClientRect();
+          const navRect = (navLogoImg || navLogo).getBoundingClientRect();
+          const dx = (navRect.left + navRect.width / 2) - (loaderRect.left + loaderRect.width / 2);
+          const dy = (navRect.top + navRect.height / 2) - (loaderRect.top + loaderRect.height / 2);
+          const scaleX = navRect.width / loaderRect.width;
+          const scaleY = navRect.height / loaderRect.height;
+          const scale = Math.max(0.16, Math.min(0.34, Math.min(scaleX, scaleY)));
+          loaderWordmark.classList.add('handoff');
+          loaderWordmark.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`;
+          document.body.classList.add('loader-complete');
+          setTimeout(() => {
+            loader.classList.add('fading-out');
+          }, 920);
+          setTimeout(() => {
+            loader.style.display = 'none';
+            document.body.classList.remove('loading');
+          }, 1540);
+        });
+      });
+    }, 1850);
+  }
 
-  document.querySelectorAll(REVEAL_SELECTOR).forEach(el => revealObserver.observe(el));
+  const revealSelector = '.reveal-up, .reveal-scale, .reveal-left, .reveal-right, .reveal-line';
+  const groupCounters = new Map();
+  qa(revealSelector).forEach(el => {
+    const parent = el.parentElement;
+    const idx = groupCounters.get(parent) || 0;
+    groupCounters.set(parent, idx + 1);
+    el.style.transitionDelay = (idx * 0.08) + 's';
+  });
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    qa(revealSelector).forEach(el => revealObserver.observe(el));
+  }
 
-  // ===== COUNT UP =====
   function animateCount(el) {
+    if (el.dataset.counted === 'true') return;
+    el.dataset.counted = 'true';
     const target = parseInt(el.getAttribute('data-count'), 10);
-    const duration = 1400;
     const start = performance.now();
+    el.closest('.stat-num')?.classList.add('counted');
     function tick(now) {
-      const progress = Math.min(1, (now - start) / duration);
+      const progress = Math.min(1, (now - start) / 1400);
       const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.round(eased * target);
       if (progress < 1) requestAnimationFrame(tick);
@@ -2265,281 +3884,280 @@
     requestAnimationFrame(tick);
   }
 
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCount(entry.target);
-        countObserver.unobserve(entry.target);
-      }
+  function triggerActiveViewEffects() {
+    const activeView = q('.page-view.active');
+    if (!activeView) return;
+    qa(revealSelector, activeView).forEach((el, idx) => {
+      el.style.transitionDelay = (idx * 0.06) + 's';
+      el.classList.remove('in-view');
+      void el.offsetWidth;
+      el.classList.add('in-view');
     });
-  }, { threshold: 0.4 });
+    qa('.count-up', activeView).forEach(el => {
+      el.textContent = '0';
+      el.dataset.counted = 'false';
+      el.closest('.stat-num')?.classList.remove('counted');
+      animateCount(el);
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    qa('.count-up').forEach(el => countObserver.observe(el));
+  }
 
-  document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+  function bindPointerEffects() {
+    qa('.category-tile, .detail-tile, .home-contact-link, .nav-contact, .submit-btn').forEach(el => {
+      el.addEventListener('pointermove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const mx = (x / rect.width) * 100;
+        const my = (y / rect.height) * 100;
+        const tiltX = ((y / rect.height) - 0.5) * -4;
+        const tiltY = ((x / rect.width) - 0.5) * 4;
+        el.style.setProperty('--mx', mx + '%');
+        el.style.setProperty('--my', my + '%');
+        if (el.classList.contains('category-tile') || el.classList.contains('detail-tile')) {
+          el.style.transform = `perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-4px)`;
+        } else {
+          el.style.transform = 'translateY(-2px)';
+        }
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.transform = '';
+        el.style.removeProperty('--mx');
+        el.style.removeProperty('--my');
+      });
+    });
+  }
 
-  // ===== NAV LIGHT/DARK SWITCH =====
-  const navEl = document.querySelector('nav');
-  const darkSections = Array.from(document.querySelectorAll('.section-dark'));
-
+  const navEl = q('nav');
+  const darkSections = qa('.section-dark');
   function updateNavTheme() {
+    if (!navEl) return;
+    const route = routeFromHash();
+    navEl.classList.toggle('solid', route !== 'home');
     const navMid = navEl.getBoundingClientRect().top + navEl.offsetHeight / 2;
     const overDark = darkSections.some(sec => {
+      if (!sec.closest('.page-view.active')) return false;
       const rect = sec.getBoundingClientRect();
       return navMid >= rect.top && navMid <= rect.bottom;
     });
     navEl.classList.toggle('on-dark', overDark);
   }
-
   window.addEventListener('scroll', updateNavTheme, { passive: true });
   window.addEventListener('resize', updateNavTheme);
-  updateNavTheme();
 
-  // ===== HERO PARALLAX & EXIT =====
-  const heroVideoBgEl = document.getElementById('heroVideoBg');
-  const heroSectionEl = document.querySelector('.hero');
-  const heroTitleEl = document.getElementById('heroTitle');
-  const heroScrollCueEl = document.querySelector('.scroll-cue');
-
+  const heroVideoBgEl = q('#heroVideoBg');
+  const heroSectionEl = q('.hero');
+  const heroScrollCueEl = q('.scroll-cue');
   function updateHeroParallax() {
+    if (!heroSectionEl || !heroVideoBgEl || routeFromHash() !== 'home') return;
     const rect = heroSectionEl.getBoundingClientRect();
     if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-
-    const offset = rect.top * -0.12;
-    heroVideoBgEl.style.transform = `translateY(${offset}px)`;
-
-    // As the hero scrolls upward out of view, ease the title/cue down in
-    // scale and opacity so the section feels like it's settling away
-    // rather than just sliding off-screen flat.
-    const scrolled = Math.max(0, -rect.top);
-    const progress = Math.min(1, scrolled / (rect.height * 0.7));
-    const scale = 1 - progress * 0.08;
-    const fade = 1 - progress;
-
-    if (heroTitleEl.classList.contains('visible')) {
-      heroTitleEl.style.transform = `scale(${scale})`;
-      heroTitleEl.style.opacity = fade;
+    heroVideoBgEl.style.transform = `translateY(${rect.top * -0.12}px)`;
+    const progress = Math.min(1, Math.max(0, -rect.top) / (rect.height * 0.7));
+    if (heroTitle && heroTitle.classList.contains('visible')) {
+      heroTitle.style.transform = `scale(${1 - progress * 0.08})`;
+      heroTitle.style.opacity = 1 - progress;
     }
     if (heroScrollCueEl) heroScrollCueEl.style.opacity = Math.max(0, 1 - progress * 2.5);
   }
-
   window.addEventListener('scroll', updateHeroParallax, { passive: true });
-  updateHeroParallax();
 
-  // ===== MOBILE MENU =====
-  const navBurger = document.getElementById('navBurger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileMenuClose = document.getElementById('mobileMenuClose');
-
-  function openMobileMenu() {
-    mobileMenu.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    updateCallPill();
-  }
-
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    document.body.style.overflow = '';
-    updateCallPill();
-  }
-
-  navBurger.addEventListener('click', openMobileMenu);
-  mobileMenuClose.addEventListener('click', closeMobileMenu);
-  mobileMenu.querySelectorAll('.mobile-menu-link').forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
-  });
-
-  // ===== FLOATING CALL PILL =====
-  const callPill = document.getElementById('callPill');
-  const heroSection = document.querySelector('.hero');
-
+  const navBurger = q('#navBurger');
+  const mobileMenu = q('#mobileMenu');
+  const mobileMenuClose = q('#mobileMenuClose');
   function updateCallPill() {
-    if (mobileMenu.classList.contains('open') || document.querySelector('.category-view.open')) {
+    const callPill = q('#callPill');
+    if (!callPill) return;
+    const route = routeFromHash();
+    if (route === 'start-project' || mobileMenu?.classList.contains('open') || q('.category-view.open')) {
       callPill.classList.remove('visible');
       return;
     }
-    const heroBottom = heroSection.getBoundingClientRect().bottom;
-    callPill.classList.toggle('visible', heroBottom < window.innerHeight * 0.5);
+    if (route !== 'home' || !heroSectionEl) {
+      callPill.classList.add('visible');
+      return;
+    }
+    callPill.classList.toggle('visible', heroSectionEl.getBoundingClientRect().bottom < window.innerHeight * 0.5);
   }
-
+  navBurger?.addEventListener('click', () => {
+    mobileMenu?.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateCallPill();
+  });
+  mobileMenuClose?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('open');
+    document.body.style.overflow = '';
+    updateCallPill();
+  });
+  qa('.mobile-menu-link', mobileMenu || document).forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.remove('open');
+      document.body.style.overflow = '';
+      updateCallPill();
+    });
+  });
   window.addEventListener('scroll', updateCallPill, { passive: true });
   window.addEventListener('resize', updateCallPill);
-  updateCallPill();
 
-  // ===== SCROLL PROGRESS BAR =====
-  const scrollProgressEl = document.getElementById('scrollProgress');
-
+  const scrollProgressEl = q('#scrollProgress');
   function updateScrollProgress() {
-    const openView = document.querySelector('.category-view.open');
-    let scrollTop, docHeight;
-
-    if (openView) {
-      scrollTop = openView.scrollTop;
-      docHeight = openView.scrollHeight - openView.clientHeight;
-    } else {
-      scrollTop = window.scrollY;
-      docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    }
-
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    scrollProgressEl.style.width = pct + '%';
+    if (!scrollProgressEl) return;
+    const openView = q('.category-view.open');
+    const scrollTop = openView ? openView.scrollTop : window.scrollY;
+    const docHeight = openView ? openView.scrollHeight - openView.clientHeight : document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgressEl.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
   }
-
   window.addEventListener('scroll', updateScrollProgress, { passive: true });
   window.addEventListener('resize', updateScrollProgress);
-  document.querySelectorAll('.category-view').forEach(view => {
-    view.addEventListener('scroll', updateScrollProgress, { passive: true });
-  });
-  updateScrollProgress();
+  qa('.category-view').forEach(view => view.addEventListener('scroll', updateScrollProgress, { passive: true }));
 
-  // ===== CATEGORY DETAIL VIEWS =====
-  const categoryViews = Array.from(document.querySelectorAll('.category-view'));
+  const categoryViews = qa('.category-view');
+  let categoryOverlayBaseRoute = 'featured-work';
 
-  function getOpenCategoryView() {
-    return categoryViews.find(v => v.classList.contains('open')) || null;
+  function buildVimeoPlayerUrl(videoId, { autoplay = false, background = false } = {}) {
+    const params = new URLSearchParams({
+      title: '0',
+      byline: '0',
+      portrait: '0',
+      badge: '0',
+      autopause: '0',
+      player_id: '0',
+      app_id: '58479'
+    });
+    if (autoplay) params.set('autoplay', '1');
+    if (background) {
+      params.set('background', '1');
+      params.set('loop', '1');
+      params.set('muted', '1');
+    }
+    return 'https://player.vimeo.com/video/' + videoId + '?' + params.toString();
   }
 
-  function openCategoryView(slug, pushHash) {
+  function openCategoryView(slug, pushHash, baseRoute = routeFromHash()) {
+    if (!categoryViews.length) return;
+    categoryOverlayBaseRoute = baseRoute;
+    setRoute(baseRoute);
     categoryViews.forEach(v => v.classList.toggle('open', v.dataset.view === slug));
     document.body.style.overflow = 'hidden';
     window.scrollTo(0, 0);
-    if (pushHash) window.location.hash = `work/${slug}`;
+    if (pushHash) window.location.hash = `${baseRoute}/${slug}`;
     updateCallPill();
     updateScrollProgress();
   }
-
   function closeCategoryView(pushHash) {
     categoryViews.forEach(v => v.classList.remove('open'));
     document.body.style.overflow = '';
-    if (pushHash && window.location.hash.startsWith('#work/')) {
-      history.pushState(null, '', '#work');
-    }
+    if (pushHash && window.location.hash.includes('/')) history.pushState(null, '', '#' + categoryOverlayBaseRoute);
     updateCallPill();
     updateScrollProgress();
   }
+  qa('.category-tile:not(.portfolio-filter)').forEach(tile => tile.addEventListener('click', () => openCategoryView(tile.dataset.category, true)));
+  qa('[data-back]').forEach(btn => btn.addEventListener('click', () => closeCategoryView(true)));
 
-  document.querySelectorAll('.category-tile').forEach(tile => {
-    tile.addEventListener('click', () => openCategoryView(tile.dataset.category, true));
-  });
-
-  document.querySelectorAll('[data-back]').forEach(btn => {
-    btn.addEventListener('click', () => closeCategoryView(true));
-  });
-
-  window.addEventListener('hashchange', () => {
-    const match = window.location.hash.match(/^#work\/(.+)$/);
-    if (match && categoryViews.some(v => v.dataset.view === match[1])) {
-      openCategoryView(match[1], false);
-    } else {
-      closeCategoryView(false);
+  function selectPortfolioCategory(slug) {
+    qa('.portfolio-filter').forEach(btn => btn.classList.toggle('active', btn.dataset.portfolioFilter === slug));
+    qa('[data-portfolio-section]').forEach(section => {
+      section.classList.toggle('active', section.dataset.portfolioSection === slug);
+    });
+    const selected = q(`[data-portfolio-section="${slug}"]`);
+    if (selected) {
+      selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    triggerActiveViewEffects();
+  }
+
+  qa('.portfolio-filter').forEach(btn => {
+    btn.addEventListener('click', () => openCategoryView(btn.dataset.portfolioFilter, true, 'portfolio'));
   });
 
-  // Open directly to a category view if the page loads with that hash.
-  (function initCategoryViewFromHash() {
-    const match = window.location.hash.match(/^#work\/(.+)$/);
-    if (match && categoryViews.some(v => v.dataset.view === match[1])) {
-      openCategoryView(match[1], false);
-    }
-  })();
-
-  // ===== HERO VIDEO CAROUSEL =====
-  const heroSlides = [
-    { title: 'Midnight Static', cat: 'Music Video' },
-    { title: 'Velocity Auto', cat: 'Commercial' },
-    { title: 'Heat Index', cat: 'Photography' },
-    { title: 'Glass House', cat: 'Music Video' },
-    { title: 'Northline Apparel', cat: 'Commercial' }
-  ];
-
-  const heroVideoBg = document.getElementById('heroVideoBg');
-  const slideEls = Array.from(heroVideoBg.querySelectorAll('.hero-video-slide'));
-  const progressSegs = Array.from(document.querySelectorAll('.hero-video-progress-seg'));
-  const nowPlayingTitle = document.querySelector('.hero-now-playing-title');
-  const nowPlayingCat = document.querySelector('.hero-now-playing-cat');
-
+  const heroVideoBg = q('#heroVideoBg');
+  const slideEls = heroVideoBg ? qa('.hero-video-slide', heroVideoBg) : [];
+  const progressSegs = qa('.hero-video-progress-seg');
+  const nowPlayingTitle = q('.hero-now-playing-title');
+  const nowPlayingCat = q('.hero-now-playing-cat');
   let heroIndex = 0;
   let heroTimer = null;
-  const HERO_SLIDE_DURATION = 7000;
-
+  function loadSlideFrame(frame) {
+    if (!frame) return;
+    const target = frame.dataset.iframeSrc || '';
+    if (!target) return;
+    frame.setAttribute('src', target);
+  }
+  function preloadAllHeroSlides() {
+    slideEls.forEach(slide => loadSlideFrame(slide.querySelector('iframe')));
+  }
   function ensureSlideLoaded(i) {
-    const video = slideEls[i].querySelector('video');
-    if (video.getAttribute('preload') === 'none' && !video.src) {
-      const source = video.querySelector('source');
-      video.preload = 'auto';
-      video.load();
+    const frame = slideEls[i]?.querySelector('iframe');
+    if (!frame) return;
+    if (!frame.getAttribute('src')) {
+      frame.setAttribute('src', frame.dataset.iframeSrc || '');
     }
   }
-
   function goToHeroSlide(i) {
+    if (!slideEls.length) return;
     heroIndex = ((i % slideEls.length) + slideEls.length) % slideEls.length;
-
     slideEls.forEach((slide, idx) => {
-      const video = slide.querySelector('video');
       slide.classList.toggle('active', idx === heroIndex);
+      const frame = slide.querySelector('iframe');
+      if (!frame) return;
       if (idx === heroIndex) {
-        ensureSlideLoaded(idx);
-        video.play().catch(() => {});
-      } else {
-        video.pause();
+        loadSlideFrame(frame);
       }
     });
-
-    progressSegs.forEach((seg, idx) => {
-      seg.classList.toggle('filled', idx === heroIndex);
-    });
-
-    nowPlayingTitle.style.opacity = '0';
-    nowPlayingCat.style.opacity = '0';
-    setTimeout(() => {
-      nowPlayingTitle.textContent = heroSlides[heroIndex].title;
-      nowPlayingCat.textContent = heroSlides[heroIndex].cat;
-      nowPlayingTitle.style.opacity = '1';
-      nowPlayingCat.style.opacity = '1';
-    }, 250);
-
-    // Preload the next slide ahead of time so its switch-in is instant.
+    progressSegs.forEach((seg, idx) => seg.classList.toggle('filled', idx === heroIndex));
+    if (nowPlayingTitle && nowPlayingCat) {
+      nowPlayingTitle.style.opacity = '0';
+      nowPlayingCat.style.opacity = '0';
+      setTimeout(() => {
+        nowPlayingTitle.textContent = slideEls[heroIndex]?.dataset.title || '';
+        nowPlayingCat.textContent = slideEls[heroIndex]?.dataset.cat || '';
+        nowPlayingTitle.style.opacity = '1';
+        nowPlayingCat.style.opacity = '1';
+      }, 250);
+    }
     ensureSlideLoaded((heroIndex + 1) % slideEls.length);
   }
-
-  function startHeroAutoplay() {
-    clearInterval(heroTimer);
-    heroTimer = setInterval(() => goToHeroSlide(heroIndex + 1), HERO_SLIDE_DURATION);
+  if (slideEls.length) {
+    preloadAllHeroSlides();
+    progressSegs.forEach(seg => seg.addEventListener('click', () => {
+      goToHeroSlide(parseInt(seg.dataset.go, 10));
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => goToHeroSlide(heroIndex + 1), 7000);
+    }));
+    goToHeroSlide(0);
+    heroTimer = setInterval(() => goToHeroSlide(heroIndex + 1), 7000);
   }
 
-  progressSegs.forEach(seg => {
-    seg.addEventListener('click', () => {
-      goToHeroSlide(parseInt(seg.dataset.go, 10));
-      startHeroAutoplay();
-    });
-  });
-
-  goToHeroSlide(0);
-  startHeroAutoplay();
-
-  // ===== CONTACT FORM =====
   const SHEET_URL = "https://script.google.com/macros/s/AKfycbxxmcHstLO6LAfblwAGIZ0YlP6bJ5Jstxl6ZSGcH-J1XFFtsM_2IjsiDHO6e4VRL_DD/exec";
-
-  async function submitForm() {
-    const btn = document.getElementById('formSubmit');
-    const name = document.getElementById('f-name').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const phone = document.getElementById('f-phone').value.trim();
-    const project = document.getElementById('f-project').value;
-    const date = document.getElementById('f-date').value.trim();
-    const budget = document.getElementById('f-budget').value.trim();
-    const message = document.getElementById('f-message').value.trim();
-
-    const errorEl = document.getElementById('formError');
-
+  window.submitForm = async function submitForm() {
+    const btn = q('#formSubmit');
+    const errorEl = q('#formError');
+    const contactForm = q('#contactForm');
+    const formSuccess = q('#formSuccess');
+    const name = q('#f-name')?.value.trim() || '';
+    const email = q('#f-email')?.value.trim() || '';
     if (!name || !email) {
-      errorEl.style.display = 'block';
-      errorEl.textContent = 'Name and email are required!';
+      if (errorEl) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Name and email are required!';
+      }
       return;
     }
-
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    errorEl.style.display = 'none';
-
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+    }
+    if (errorEl) errorEl.style.display = 'none';
     try {
       await fetch(SHEET_URL, {
         method: 'POST',
@@ -2547,95 +4165,246 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           source: 'Sabor Studios',
-          name, phone, email,
-          projectType: project,
-          preferredDate: date,
-          budget, message
+          name,
+          email,
+          phone: q('#f-phone')?.value.trim() || '',
+          projectType: q('#f-project')?.value || '',
+          preferredDate: q('#f-date')?.value.trim() || '',
+          budget: q('#f-budget')?.value.trim() || '',
+          message: q('#f-message')?.value.trim() || ''
         })
       });
-      document.getElementById('contactForm').style.display = 'none';
-      document.getElementById('formSuccess').style.display = 'block';
+      if (contactForm) contactForm.style.display = 'none';
+      if (formSuccess) formSuccess.style.display = 'block';
     } catch (e) {
-      btn.disabled = false;
-      btn.textContent = 'Send Inquiry';
-      errorEl.style.display = 'block';
-      errorEl.textContent = 'Something went wrong. DM @saborstudios on Instagram!';
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Send Inquiry';
+      }
+      if (errorEl) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Something went wrong. DM @saborstudios on Instagram!';
+      }
     }
-  }
+  };
 
-  // ===== CUSTOM SELECT (Project Type) =====
-  const projectSelect = document.getElementById('projectSelect');
-  const projectSelectTrigger = document.getElementById('projectSelectTrigger');
-  const projectSelectPanel = document.getElementById('projectSelectPanel');
-  const projectSelectLabel = document.getElementById('projectSelectLabel');
-  const projectHiddenInput = document.getElementById('f-project');
-
+  const projectSelect = q('#projectSelect');
+  const projectSelectTrigger = q('#projectSelectTrigger');
+  const projectSelectPanel = q('#projectSelectPanel');
+  const projectSelectLabel = q('#projectSelectLabel');
+  const projectHiddenInput = q('#f-project');
   function closeProjectPanel() {
-    projectSelect.classList.remove('open');
+    projectSelect?.classList.remove('open');
   }
-
-  projectSelectTrigger.addEventListener('click', (e) => {
+  projectSelectTrigger?.addEventListener('click', (e) => {
     e.stopPropagation();
-    projectSelect.classList.toggle('open');
+    projectSelect?.classList.toggle('open');
   });
-
-  projectSelectPanel.querySelectorAll('.custom-select-option').forEach(option => {
+  qa('.custom-select-option', projectSelectPanel || document).forEach(option => {
     option.addEventListener('click', () => {
       const value = option.dataset.value;
-      projectSelectPanel.querySelectorAll('.custom-select-option').forEach(o => o.classList.remove('selected'));
+      qa('.custom-select-option', projectSelectPanel).forEach(o => o.classList.remove('selected'));
       option.classList.add('selected');
-      projectHiddenInput.value = value;
-      projectSelectLabel.textContent = value || 'Project Type';
-      projectSelectLabel.classList.toggle('placeholder', !value);
+      if (projectHiddenInput) projectHiddenInput.value = value;
+      if (projectSelectLabel) {
+        projectSelectLabel.textContent = value || 'Project Type';
+        projectSelectLabel.classList.toggle('placeholder', !value);
+      }
       closeProjectPanel();
     });
   });
-
   document.addEventListener('click', (e) => {
-    if (!projectSelect.contains(e.target)) {
-      closeProjectPanel();
-    }
+    if (projectSelect && !projectSelect.contains(e.target)) closeProjectPanel();
   });
 
-  // ===== WORK LIGHTBOX =====
-  const workLightbox = document.getElementById('workLightbox');
-  const lightboxMedia = document.getElementById('lightboxMedia');
-  const lightboxCat = document.getElementById('lightboxCat');
-  const lightboxTitle = document.getElementById('lightboxTitle');
-  const lightboxSub = document.getElementById('lightboxSub');
+  const workLightbox = q('#workLightbox');
+  const lightboxMedia = q('#lightboxMedia');
+  const lightboxCat = q('#lightboxCat');
+  const lightboxTitle = q('#lightboxTitle');
+  const lightboxSub = q('#lightboxSub');
+  const videoPrev = q('[data-video-prev]');
+  const videoNext = q('[data-video-next]');
+  const photoLightbox = q('#photoLightbox');
+  const photoLightboxImage = q('#photoLightboxImage');
+  const photoLightboxIndex = q('#photoLightboxIndex');
+  const photoLightboxTitle = q('#photoLightboxTitle');
+  const photoGalleryMap = new Map();
 
-  function openLightbox(tile) {
-    const bg = tile.querySelector('.tile-bg');
-    const cat = tile.querySelector('.tile-cat');
-    const title = tile.querySelector('.tile-title');
-    const sub = tile.querySelector('.tile-sub');
+  qa('[data-photo-gallery]').forEach(tile => {
+    const slug = tile.dataset.photoGallery;
+    if (!photoGalleryMap.has(slug)) photoGalleryMap.set(slug, []);
+    photoGalleryMap.get(slug).push(tile);
+  });
 
-    lightboxMedia.style.background = bg ? getComputedStyle(bg).backgroundImage : '';
-    lightboxCat.textContent = cat ? cat.textContent : '';
-    lightboxTitle.textContent = title ? title.textContent : '';
-    lightboxSub.textContent = sub ? sub.textContent : '';
+  const photoViewerState = { slug: '', index: 0 };
+  const videoViewerState = { tiles: [], index: 0 };
 
+  function renderPhotoViewer() {
+    const gallery = photoGalleryMap.get(photoViewerState.slug) || [];
+    const active = gallery[photoViewerState.index];
+    if (!active || !photoLightboxImage) return;
+    const img = q('img', active);
+    photoLightboxImage.src = img?.getAttribute('src') || '';
+    photoLightboxImage.alt = img?.getAttribute('alt') || active.dataset.photoTitle || '';
+    if (photoLightboxIndex) {
+      photoLightboxIndex.textContent = String(photoViewerState.index + 1).padStart(2, '0') + ' / ' + String(gallery.length).padStart(2, '0');
+    }
+    if (photoLightboxTitle) {
+      photoLightboxTitle.textContent = active.dataset.photoTitle || '';
+    }
+  }
+
+  function openPhotoViewer(slug, index) {
+    const gallery = photoGalleryMap.get(slug) || [];
+    if (!gallery.length || !photoLightbox) return;
+    photoViewerState.slug = slug;
+    photoViewerState.index = Math.max(0, Math.min(index, gallery.length - 1));
+    renderPhotoViewer();
+    photoLightbox.classList.add('open');
+    photoLightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePhotoViewer() {
+    if (!photoLightbox) return;
+    photoLightbox.classList.remove('open');
+    photoLightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function stepPhotoViewer(direction) {
+    const gallery = photoGalleryMap.get(photoViewerState.slug) || [];
+    if (!gallery.length) return;
+    photoViewerState.index = (photoViewerState.index + direction + gallery.length) % gallery.length;
+    renderPhotoViewer();
+  }
+
+  function renderVideoViewer() {
+    const active = videoViewerState.tiles[videoViewerState.index];
+    if (!active || !lightboxMedia) return;
+    lightboxMedia.classList.add('has-vimeo');
+    lightboxMedia.innerHTML = '<iframe src="' + buildVimeoPlayerUrl(active.dataset.vimeoId, { autoplay: true }) + '" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="' + (active.dataset.vimeoTitle || '') + '"></iframe>';
+    if (lightboxCat) lightboxCat.textContent = q('.tile-cat', active)?.textContent || '';
+    if (lightboxTitle) lightboxTitle.textContent = active.dataset.vimeoTitle || q('.tile-title', active)?.textContent || '';
+    if (lightboxSub) lightboxSub.textContent = active.dataset.vimeoSub || q('.tile-sub', active)?.textContent || '';
+    const showNav = videoViewerState.tiles.length > 1;
+    if (videoPrev) videoPrev.style.display = showNav ? 'inline-flex' : 'none';
+    if (videoNext) videoNext.style.display = showNav ? 'inline-flex' : 'none';
+  }
+
+  function openVideoViewer(tiles, index) {
+    if (!workLightbox || !tiles.length) return;
+    videoViewerState.tiles = tiles;
+    videoViewerState.index = Math.max(0, Math.min(index, tiles.length - 1));
+    renderVideoViewer();
     workLightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeLightbox() {
-    workLightbox.classList.remove('open');
-    document.body.style.overflow = '';
+  function stepVideoViewer(direction) {
+    if (!videoViewerState.tiles.length) return;
+    videoViewerState.index = (videoViewerState.index + direction + videoViewerState.tiles.length) % videoViewerState.tiles.length;
+    renderVideoViewer();
   }
 
-  document.querySelectorAll('.detail-tile').forEach(tile => {
-    tile.addEventListener('click', () => openLightbox(tile));
+  function openLightbox(tile) {
+    if (!workLightbox) return;
+    const bg = q('.tile-bg', tile);
+    const isVimeo = tile.dataset.lightboxType === 'vimeo';
+    if (lightboxMedia) {
+      lightboxMedia.classList.toggle('has-vimeo', isVimeo);
+      lightboxMedia.innerHTML = isVimeo ? tile.dataset.vimeoEmbed || '' : '';
+      lightboxMedia.style.background = isVimeo ? '#050505' : (bg ? getComputedStyle(bg).backgroundImage : '');
+    }
+    if (lightboxCat) lightboxCat.textContent = q('.tile-cat', tile)?.textContent || '';
+    if (lightboxTitle) lightboxTitle.textContent = isVimeo ? (tile.dataset.vimeoTitle || q('.tile-title', tile)?.textContent || '') : (q('.tile-title', tile)?.textContent || '');
+    if (lightboxSub) lightboxSub.textContent = isVimeo ? (tile.dataset.vimeoSub || q('.tile-sub', tile)?.textContent || '') : (q('.tile-sub', tile)?.textContent || '');
+    if (videoPrev) videoPrev.style.display = 'none';
+    if (videoNext) videoNext.style.display = 'none';
+    workLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    if (lightboxMedia) {
+      lightboxMedia.innerHTML = '';
+      lightboxMedia.classList.remove('has-vimeo');
+      lightboxMedia.style.background = '';
+    }
+    videoViewerState.tiles = [];
+    videoViewerState.index = 0;
+    workLightbox?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  qa('.detail-tile').forEach(tile => tile.addEventListener('click', () => {
+    if (tile.dataset.vimeoId) {
+      const scope = tile.closest('.detail-grid');
+      const all = scope ? qa('.detail-tile[data-vimeo-id]', scope) : [];
+      const activeIndex = Math.max(0, all.indexOf(tile));
+      if (all.length) {
+        openVideoViewer(all, activeIndex);
+        return;
+      }
+    }
+    openLightbox(tile);
+  }));
+  qa('.featured-word-item').forEach(tile => tile.addEventListener('click', () => {
+    const slug = tile.dataset.featuredCategory;
+    const index = parseInt(tile.dataset.featuredIndex, 10) || 0;
+    const category = CATEGORY_DEFS.find(item => item.slug === slug);
+    const project = category?.items?.[index];
+    if (!category || !project) return;
+    if (slug === 'photography') {
+      openPhotoViewer(slug, index);
+      return;
+    }
+    if (project.vimeoId) {
+      const scope = q('.category-view[data-view="' + slug + '"]');
+      const all = scope ? qa('.detail-tile[data-vimeo-id]', scope) : [];
+      const activeIndex = Math.max(0, all.findIndex(tileEl => tileEl.dataset.vimeoId === project.vimeoId));
+      if (all.length) {
+        openVideoViewer(all, Math.max(0, activeIndex));
+        return;
+      }
+    }
+    openCategoryView(slug, true, 'featured-work');
+  }));
+  qa('[data-photo-gallery]').forEach(tile => tile.addEventListener('click', () => {
+    openPhotoViewer(tile.dataset.photoGallery, parseInt(tile.dataset.photoIndex, 10) || 0);
+  }));
+  qa('[data-lightbox-close]').forEach(el => el.addEventListener('click', closeLightbox));
+  qa('[data-video-prev]').forEach(el => el.addEventListener('click', () => stepVideoViewer(-1)));
+  qa('[data-video-next]').forEach(el => el.addEventListener('click', () => stepVideoViewer(1)));
+  qa('[data-photo-close]').forEach(el => el.addEventListener('click', closePhotoViewer));
+  qa('[data-photo-prev]').forEach(el => el.addEventListener('click', () => stepPhotoViewer(-1)));
+  qa('[data-photo-next]').forEach(el => el.addEventListener('click', () => stepPhotoViewer(1)));
+  photoLightbox?.addEventListener('click', (e) => {
+    if (e.target === photoLightbox) closePhotoViewer();
   });
-
-  workLightbox.querySelectorAll('[data-lightbox-close]').forEach(el => {
-    el.addEventListener('click', closeLightbox);
+  workLightbox?.addEventListener('click', (e) => {
+    if (e.target === workLightbox) closeLightbox();
   });
-
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'Escape') {
+      closeLightbox();
+      closePhotoViewer();
+    }
+    if (workLightbox?.classList.contains('open')) {
+      if (e.key === 'ArrowLeft') stepVideoViewer(-1);
+      if (e.key === 'ArrowRight') stepVideoViewer(1);
+    }
+    if (photoLightbox?.classList.contains('open')) {
+      if (e.key === 'ArrowLeft') stepPhotoViewer(-1);
+      if (e.key === 'ArrowRight') stepPhotoViewer(1);
+    }
   });
-</script>
 
+  bindPointerEffects();
+  setRoute(routeFromHash());
+  const categoryMatch = window.location.hash.match(/^#(featured-work|portfolio)\/(.+)$/);
+  if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
+  updateNavTheme();
+  updateHeroParallax();
+})();
+</script>
 </body>
 </html>
