@@ -1722,17 +1722,65 @@
   }
 
   body.spa-mode nav {
+    grid-template-columns: minmax(120px, 1fr) minmax(140px, 1fr) auto minmax(140px, 1fr) minmax(170px, 1fr);
+    gap: 18px;
+    padding: 20px 42px;
+    opacity: 1;
+    animation: none;
+    background: rgba(10,10,10,0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.28s ease, border-color 0.28s ease, backdrop-filter 0.28s ease, -webkit-backdrop-filter 0.28s ease, padding 0.28s ease;
+  }
+
+  body.spa-mode nav.home-top {
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    opacity: 1;
-    animation: none;
+    border-bottom-color: transparent;
   }
 
   body.spa-mode nav.solid {
-    background: rgba(10,10,10,0.86);
+    background: rgba(10,10,10,0.72);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+    border-bottom-color: rgba(255,255,255,0.08);
+  }
+
+  body.spa-mode nav .nav-item,
+  body.spa-mode nav .nav-contact,
+  body.spa-mode nav .nav-center {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  body.spa-mode nav .nav-home {
+    justify-self: stretch;
+  }
+
+  body.spa-mode nav .nav-portfolio {
+    justify-self: stretch;
+  }
+
+  body.spa-mode nav .nav-center {
+    justify-self: center;
+  }
+
+  body.spa-mode nav .nav-about {
+    justify-self: stretch;
+  }
+
+  body.spa-mode nav .nav-project {
+    justify-self: stretch;
+  }
+
+  body.spa-mode nav .nav-contact {
+    max-width: 196px;
+    width: 100%;
+    margin-inline: auto;
   }
 
   .page-view {
@@ -1937,6 +1985,27 @@
     padding-top: 96px;
   }
 
+  .home-category-picker {
+    padding-bottom: 72px;
+  }
+
+  .home-category-picker .work-intro {
+    max-width: 1180px;
+    margin: 0 auto 26px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) auto;
+    gap: 28px;
+    align-items: end;
+  }
+
+  .home-category-picker .portfolio-picker-inner {
+    max-width: 1180px;
+  }
+
+  .home-portfolio-selector {
+    padding-top: 4px;
+  }
+
   .home-about {
     padding: 96px 48px;
     background: var(--black);
@@ -2082,7 +2151,7 @@
   }
 
   .portfolio-category {
-    padding: 72px 48px;
+    padding: 72px 0;
     background: var(--black);
     display: none;
   }
@@ -2096,8 +2165,12 @@
   }
 
   .portfolio-category-inner {
-    max-width: 1180px;
+    max-width: none;
     margin: 0 auto;
+  }
+
+  .category-view-inner {
+    width: 100%;
   }
 
   .portfolio-category .category-back {
@@ -2105,7 +2178,15 @@
   }
 
   .portfolio-category .category-view-header {
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+    padding: 0 28px;
+  }
+
+  .category-view-kicker {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.82);
   }
 
   .portfolio-picker {
@@ -2189,6 +2270,7 @@
     color: var(--gray);
     margin-top: 16px;
     font-size: 14px;
+    display: none;
   }
 
   .featured-word-selector {
@@ -2234,6 +2316,222 @@
   .featured-word-item-sub {
     color: var(--gray);
     font-size: 14px;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px;
+    width: 100%;
+  }
+
+  .detail-tile {
+    grid-column: span 1;
+    position: relative;
+    aspect-ratio: 1.72 / 1;
+    min-height: 340px;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #050505;
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  }
+
+  .detail-grid .detail-tile:first-child {
+    grid-column: span 1;
+    aspect-ratio: 1.72 / 1;
+  }
+
+  .detail-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5,5,5,0.06) 0%, rgba(5,5,5,0.14) 44%, rgba(5,5,5,0.68) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .detail-tile .tile-bg,
+  .detail-tile .tile-preview {
+    position: absolute;
+    inset: 0;
+  }
+
+  .detail-tile .tile-bg {
+    transition: transform 0.5s ease, filter 0.5s ease, opacity 0.35s ease;
+  }
+
+  .detail-tile .tile-preview {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .detail-tile .tile-preview iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: none;
+  }
+
+  .detail-tile.preview-active .tile-preview {
+    opacity: 1;
+  }
+
+  .detail-tile.preview-active .tile-bg {
+    opacity: 0;
+    transform: none;
+  }
+
+  .detail-tile .tile-play {
+    display: none;
+  }
+
+  .detail-tile .tile-play svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .detail-tile.preview-active .tile-play,
+  .detail-tile:hover .tile-play {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .detail-tile .tile-info {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 24px;
+    z-index: 3;
+    display: grid;
+    gap: 2px;
+    justify-items: start;
+    align-content: end;
+  }
+
+  .detail-tile .tile-kicker {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: clamp(13px, 1vw, 18px);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.08;
+    color: var(--white);
+  }
+
+  .detail-tile .tile-title {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: clamp(21px, 1.8vw, 28px);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.08;
+    text-transform: none;
+    color: rgba(255,255,255,0.92);
+  }
+
+  .detail-tile .tile-sub {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: rgba(255,255,255,0.68);
+    margin-top: 2px;
+  }
+
+  .detail-tile .tile-num,
+  .detail-tile .tile-cat {
+    display: none;
+  }
+
+  .detail-tile:hover,
+  .detail-tile.preview-active {
+    transform: none !important;
+    border-color: rgba(255,255,255,0.98);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,0.98);
+  }
+
+  .detail-tile:hover::before,
+  .detail-tile.preview-active::before {
+    opacity: 0;
+  }
+
+  .detail-tile:hover .tile-bg {
+    filter: none;
+  }
+
+  .work-lightbox {
+    background: rgba(4,4,4,0.94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .work-lightbox-backdrop {
+    background: transparent;
+  }
+
+  .work-lightbox-card {
+    width: min(100vw - 16px, 1600px);
+    height: calc(100vh - 16px);
+    margin: 8px auto;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #050505;
+  }
+
+  .work-lightbox-close {
+    top: 18px;
+    right: 22px;
+    width: auto;
+    height: auto;
+    border: 0;
+    background: transparent;
+    color: rgba(255,255,255,0.92);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .work-lightbox-info {
+    left: 50%;
+    right: auto;
+    bottom: 18px;
+    transform: translateX(-50%);
+    width: calc(100% - 80px);
+    text-align: center;
+    padding: 0;
+    background: transparent;
+    display: grid;
+    gap: 6px;
+  }
+
+  .work-lightbox-cat {
+    color: rgba(255,255,255,0.92);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .work-lightbox-title {
+    font-family: inherit;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.02;
+    text-transform: none;
+  }
+
+  .work-lightbox-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.58);
+    margin-top: 0;
   }
 
   .legal-content {
@@ -2310,6 +2608,18 @@
     opacity: 1;
   }
 
+  .detail-tile::before,
+  .detail-tile:hover::before,
+  .detail-tile.preview-active::before {
+    opacity: 0 !important;
+    background: none !important;
+  }
+
+  .detail-tile:hover::after,
+  .detail-tile.preview-active::after {
+    opacity: 0;
+  }
+
   .category-tile .tile-bg,
   .detail-tile .tile-bg,
   .about-portrait-frame img {
@@ -2372,7 +2682,8 @@
     overflow: hidden;
   }
 
-  .hero-video-slide iframe {
+  .hero-video-slide iframe,
+  .hero-video-slide .hero-video-file {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2388,7 +2699,8 @@
     transition: opacity 0.6s ease;
   }
 
-  .hero-video-slide.hero-loaded iframe {
+  .hero-video-slide.hero-loaded iframe,
+  .hero-video-slide.hero-loaded .hero-video-file {
     opacity: 1;
   }
 
@@ -2407,7 +2719,8 @@
   }
 
   @media (min-width: 701px) {
-    .hero-video-slide.hero-vertical-crop iframe {
+    .hero-video-slide.hero-vertical-crop iframe,
+    .hero-video-slide.hero-vertical-crop .hero-video-file {
       width: 100vw;
       height: 177.78vw;
       min-width: 100vw;
@@ -2682,7 +2995,8 @@
 
   .category-tile:hover .tile-bg,
   .detail-tile:hover .tile-bg {
-    filter: saturate(1.1) contrast(1.12);
+    filter: none;
+    transform: none;
   }
 
   .stat-num {
@@ -2731,6 +3045,32 @@
   }
 
   @media (max-width: 700px) {
+    body.spa-mode nav {
+      grid-template-columns: 1fr auto;
+      gap: 0;
+      align-items: center;
+      padding: 18px 24px;
+      background: rgba(10,10,10,0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    body.spa-mode nav .nav-item,
+    body.spa-mode nav .nav-contact {
+      display: none;
+    }
+    body.spa-mode nav .nav-center {
+      grid-column: 1;
+      justify-self: start;
+      align-items: flex-start;
+      min-height: 44px;
+    }
+    body.spa-mode nav .nav-burger {
+      display: flex;
+      grid-column: 2;
+      justify-self: end;
+      align-self: center;
+    }
     .subpage-view { padding-top: 78px; }
     .page-header { padding: 94px 24px 52px; }
     .home-actions {
@@ -2743,6 +3083,12 @@
     .home-about { padding: 72px 24px; }
     .home-about-inner { grid-template-columns: 1fr; }
     .home-about-stats { grid-template-columns: 1fr; }
+    .home-category-picker { padding-bottom: 52px; }
+    .home-category-picker .work-intro {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
     .featured-spotlight { padding: 0 24px 72px; }
     .featured-spotlight-intro { grid-template-columns: 1fr; }
     .featured-spotlight-grid { grid-template-columns: 1fr; }
@@ -2755,7 +3101,43 @@
     .portfolio-selector { gap: 12px 16px; }
     .portfolio-filter-label { font-size: clamp(22px, 9vw, 34px); }
     .featured-word-selector { grid-template-columns: 1fr; }
-    .portfolio-category { padding: 52px 24px; }
+    .portfolio-category { padding: 52px 0; }
+    .portfolio-category .category-view-header { padding: 0 16px; }
+    .detail-grid {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .detail-grid .detail-tile,
+    .detail-grid .detail-tile:first-child,
+    .detail-grid .detail-tile:nth-child(4n + 2),
+    .detail-grid .detail-tile:nth-child(4n + 3),
+    .detail-grid .detail-tile:nth-child(4n + 4),
+    .detail-grid .detail-tile:nth-child(4n + 5) {
+      grid-column: span 1;
+      aspect-ratio: 1.18 / 1;
+      min-height: 250px;
+      border-radius: 20px;
+    }
+    .detail-tile .tile-play {
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+    .detail-tile .tile-info {
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+    }
+    .detail-tile .tile-kicker {
+      font-size: clamp(15px, 4.8vw, 20px);
+    }
+    .detail-tile .tile-title {
+      font-size: clamp(17px, 5.4vw, 22px);
+    }
+    .detail-tile .tile-sub {
+      font-size: 12px;
+    }
     .legal-content { padding: 0 24px 72px; }
     .project-viewer { grid-template-columns: 1fr; padding: 16px; }
     .photo-gallery { column-count: 2; column-gap: 12px; }
@@ -2783,6 +3165,12 @@
       gap: 6px;
       font-size: 11px;
     }
+    body.spa-mode nav.home-top {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom-color: transparent;
+    }
     #navLogo {
       width: 132px;
       height: 44px;
@@ -2796,6 +3184,11 @@
     .photo-gallery { column-count: 1; }
   }
 </style>
+
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com">
+<link rel="preconnect" href="https://f.vimeocdn.com" crossorigin>
+
 </head>
 <body class="spa-mode loading">
 <div id="scrollProgress"></div>
@@ -2808,15 +3201,13 @@
   </div>
 </div>
 <nav>
-  <a href="#featured-work" class="nav-item">Featured Work</a>
-  <a href="#portfolio" class="nav-item">Portfolio</a>
+  <a href="#" class="nav-item nav-home" data-route-link>Home</a>
+  <a href="#portfolio" class="nav-item nav-portfolio">Portfolio</a>
   <div class="nav-center">
     <a href="#" id="navLogo" data-route-link aria-label="Sabor Studios home"><img src="assets/sabor-can-nav-logo.png" alt="Sabor Studios"></a>
   </div>
-  <div class="nav-group">
-    <a href="#about" class="nav-item">About</a>
-  </div>
-  <a href="#start-project" class="nav-contact nav-far-right">Start a project</a>
+  <a href="#about" class="nav-item nav-about">About</a>
+  <a href="#start-project" class="nav-contact nav-project">Start a project</a>
   <button class="nav-burger" id="navBurger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </button>
@@ -2827,7 +3218,7 @@
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
   </div>
   <div class="mobile-menu-links">
-    <a href="#featured-work" class="mobile-menu-link">Featured Work</a>
+    <a href="#" class="mobile-menu-link" data-route-link>Home</a>
     <a href="#portfolio" class="mobile-menu-link">Portfolio</a>
     <a href="#about" class="mobile-menu-link">About</a>
     <a href="#start-project" class="mobile-menu-link">Start a project</a>
@@ -2841,27 +3232,27 @@
     
     <div class="hero-video-slide active" data-index="0" data-title="Bad Bitches - JLifestyle & FlashLewis" data-cat="Music Video" data-vimeo-id="1210926889">
       <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us" alt="Bad Bitches - JLifestyle & FlashLewis">
-      <iframe src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" data-iframe-src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Bad Bitches - JLifestyle & FlashLewis"></iframe>
+      <video class="hero-video-file" autoplay muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/Bad%20Bitches%20Preview.mp4"></video>
     </div>
 
     <div class="hero-video-slide" data-index="1" data-title="99 Problems - Jrip" data-cat="Music Video" data-vimeo-id="1210927098">
       <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us" alt="99 Problems - Jrip">
-      <iframe data-iframe-src="https://player.vimeo.com/video/1210927098?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=65s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="99 Problems - Jrip"></iframe>
+      <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/99%20Problems%20Preview.mp4"></video>
     </div>
 
-    <div class="hero-video-slide hero-vertical-crop" data-index="2" data-title="TY Myers Concert Recap 09.14.24" data-cat="Short Form" data-vimeo-id="1210971769">
-      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2181037506-9159bad7412d3f97c6e353aa127bd0f3468318f161d74bcd6c75922f0ad0cc85-d_1280?region=us" alt="TY Myers Concert Recap 09.14.24">
-      <iframe data-iframe-src="https://player.vimeo.com/video/1210971769?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=29s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="TY Myers Concert Recap 09.14.24"></iframe>
-    </div>
-
-    <div class="hero-video-slide hero-vertical-crop" data-index="3" data-title="Lil Skies Concert Recap 11.04.23" data-cat="Short Form" data-vimeo-id="1210971700">
+    <div class="hero-video-slide hero-vertical-crop" data-index="2" data-title="Lil Skies Concert Recap 11.04.23" data-cat="Short Form" data-vimeo-id="1210971700">
       <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2181037463-a167d1b4e9b878d6de80239f49f18fe9473a80331b48b888368eff110372bf18-d_1280?region=us" alt="Lil Skies Concert Recap 11.04.23">
-      <iframe data-iframe-src="https://player.vimeo.com/video/1210971700?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=15s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Lil Skies Concert Recap 11.04.23"></iframe>
+      <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/Lil%20Skies%20Concert%20Preview.mp4"></video>
+    </div>
+
+    <div class="hero-video-slide hero-vertical-crop" data-index="3" data-title="DJ Exile Concert Recap 06.09.23" data-cat="Short Form" data-vimeo-id="1210971657">
+      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2181037473-1797ad69bef7a43c99be61e3ae617ae60388387eb32c43a81e923a0d9f9b16de-d_1280?region=us" alt="DJ Exile Concert Recap 06.09.23">
+      <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/DJ%20Exile%20Concert%20Preview.mp4"></video>
     </div>
 
     <div class="hero-video-slide" data-index="4" data-title="Most Hated - Yung Dubbb" data-cat="Music Video" data-vimeo-id="1210927538">
       <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us" alt="Most Hated - Yung Dubbb">
-      <iframe data-iframe-src="https://player.vimeo.com/video/1210927538?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=135s" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="Most Hated - Yung Dubbb"></iframe>
+      <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/Most%20Hated%20Preview.mp4"></video>
     </div>
     <div class="hero-video-scrim"></div>
     <div class="hero-streak"></div>
@@ -2889,78 +3280,42 @@
     <div class="scroll-cue-line"></div>
   </div>
 </section>
-    <section class="section-dark home-featured">
-<div class="section-inner">
-  <div class="work-intro">
-    <div>
-      <div class="section-label">Selected work</div>
-      <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Built for the artists, brands, and live moments that need direction.</span></h2>
+    <section class="portfolio-picker section-dark home-featured home-category-picker">
+  <div class="portfolio-picker-inner">
+    <div class="work-intro">
+      <div>
+        <div class="section-label">Selected work</div>
+        <h2 class="section-heading reveal-line"><span class="reveal-line-inner">Built for the artists, brands, and live moments that need direction.</span></h2>
+      </div>
+      <div class="work-count reveal-up"><a href="#portfolio" class="home-contact-link" data-route-link>View Portfolio</a></div>
     </div>
-    <div class="work-count reveal-up"><a href="#featured-work" class="home-contact-link" data-route-link>View All Work</a></div>
+    <div class="portfolio-selector home-portfolio-selector">
+      <button class="portfolio-filter home-portfolio-filter" data-home-filter="music-videos">
+        <span class="portfolio-filter-index">07</span>
+        <span class="portfolio-filter-label">Music Videos</span>
+      </button>
+<button class="portfolio-filter home-portfolio-filter" data-home-filter="commercials">
+        <span class="portfolio-filter-index">03-05</span>
+        <span class="portfolio-filter-label">Commercials</span>
+      </button>
+<button class="portfolio-filter home-portfolio-filter" data-home-filter="concerts">
+        <span class="portfolio-filter-index">09</span>
+        <span class="portfolio-filter-label">Concerts</span>
+      </button>
+<button class="portfolio-filter home-portfolio-filter" data-home-filter="photography">
+        <span class="portfolio-filter-index">16 Frames</span>
+        <span class="portfolio-filter-label">Photography</span>
+      </button>
+<button class="portfolio-filter home-portfolio-filter" data-home-filter="events">
+        <span class="portfolio-filter-index">03-05</span>
+        <span class="portfolio-filter-label">Events</span>
+      </button>
+<button class="portfolio-filter home-portfolio-filter" data-home-filter="short-form">
+        <span class="portfolio-filter-index">09</span>
+        <span class="portfolio-filter-label">Short Form</span>
+      </button>
+    </div>
   </div>
-  <div class="category-grid">
-    <button class="category-tile reveal-scale" data-category="music-videos">
-      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.72)), radial-gradient(circle at 20% 18%, rgba(224,45,45,0.9), transparent 36%), linear-gradient(135deg, #1a0707 0%, #310909 48%, #090909 100%); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">07 Projects</div>
-        <div class="category-tile-title">Music Videos</div>
-      </div>
-    </button>
-<button class="category-tile reveal-scale" data-category="commercials">
-      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.78)), linear-gradient(135deg, #101214 0%, #1f2730 44%, #090909 100%); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">03-05 Projects</div>
-        <div class="category-tile-title">Commercials</div>
-      </div>
-    </button>
-<button class="category-tile reveal-scale" data-category="concerts">
-      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.78)), radial-gradient(circle at 68% 18%, rgba(224,45,45,0.78), transparent 30%), linear-gradient(135deg, #150808 0%, #2e0c12 44%, #090909 100%); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">09 Projects</div>
-        <div class="category-tile-title">Concerts</div>
-      </div>
-    </button>
-<button class="category-tile reveal-scale" data-category="photography">
-      <div class="tile-bg tile-video-stack" style="background:url('photography/Photo1.jpg'); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">16 Frames</div>
-        <div class="category-tile-title">Photography</div>
-      </div>
-    </button>
-<button class="category-tile reveal-scale" data-category="events">
-      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.74)), linear-gradient(135deg, #14100d 0%, #332218 45%, #090909 100%); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">03-05 Projects</div>
-        <div class="category-tile-title">Events</div>
-      </div>
-    </button>
-<button class="category-tile reveal-scale" data-category="short-form">
-      <div class="tile-bg tile-video-stack" style="background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.78)), linear-gradient(135deg, #0e1210 0%, #132d24 44%, #090909 100%); background-size: cover; background-position: center;"></div>
-      <div class="category-tile-arrow">
-        <svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </div>
-      <div class="category-tile-info">
-        <div class="category-tile-count">09 Projects</div>
-        <div class="category-tile-title">Short Form</div>
-      </div>
-    </button>
-  </div>
-</div>
 </section>
     <section class="home-about section-dark">
   <div class="home-about-inner">
@@ -3006,53 +3361,6 @@
       <div><span>Services</span> Music videos, commercials, concerts, events, short form, photography</div>
       <a href="#start-project" class="home-contact-link" data-route-link>Start a Project</a>
     </div>
-  </div>
-</section>
-  </div>
-
-  <div class="page-view subpage-view" data-route="featured-work">
-    <section class="page-header section-dark">
-  <div class="page-header-inner">
-    <div class="page-kicker">Sabor Studios</div>
-    <h1>Featured Work</h1>
-    <p>A focused look at the categories Sabor Studios builds around: music videos, commercials, and photography.</p>
-  </div>
-</section>
-    <section class="portfolio-picker section-dark">
-  <div class="portfolio-picker-inner">
-    <div class="portfolio-selector featured-word-selector">
-      <button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="6">
-    <span class="featured-word-item-kicker">Music Video</span>
-    <span class="featured-word-item-title">Bad Bitches - JLifestyle & FlashLewis</span>
-    <span class="featured-word-item-sub">Music Video</span>
-  </button>
-<button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="0">
-    <span class="featured-word-item-kicker">Music Video</span>
-    <span class="featured-word-item-title">Right Now - Ahmeel</span>
-    <span class="featured-word-item-sub">Music Video</span>
-  </button>
-<button class="featured-word-item" type="button" data-featured-category="concerts" data-featured-index="7">
-    <span class="featured-word-item-kicker">Concert</span>
-    <span class="featured-word-item-title">GroupLove Concert</span>
-    <span class="featured-word-item-sub">Concert Recap</span>
-  </button>
-<button class="featured-word-item" type="button" data-featured-category="photography" data-featured-index="2">
-    <span class="featured-word-item-kicker">Photography</span>
-    <span class="featured-word-item-title">Photo 03</span>
-    <span class="featured-word-item-sub">Photography</span>
-  </button>
-<button class="featured-word-item" type="button" data-featured-category="music-videos" data-featured-index="1">
-    <span class="featured-word-item-kicker">Music Video</span>
-    <span class="featured-word-item-title">Hurt - Terry Curtis</span>
-    <span class="featured-word-item-sub">Music Video</span>
-  </button>
-<button class="featured-word-item" type="button" data-featured-category="photography" data-featured-index="13">
-    <span class="featured-word-item-kicker">Photography</span>
-    <span class="featured-word-item-title">Photo 14</span>
-    <span class="featured-word-item-sub">Photography</span>
-  </button>
-    </div>
-    <div class="portfolio-picker-note">Choose a featured piece to open it directly.</div>
   </div>
 </section>
   </div>
@@ -3296,77 +3604,77 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Music Videos</h2>
+      <div class="category-view-kicker">Music Videos</div>
     </div>
     <div class="detail-grid">
-      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927512" data-vimeo-title="Right Now-Ahmeel" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-home-featured="true">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927512" data-vimeo-title="Right Now-Ahmeel" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927512?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Ahmeel" data-display-title="Right Now" data-display-sub="" data-home-featured="true">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985774-54ca4228f876bb33d6a9cdc21003c8679a1d359659bac7c23a40957ac29921b3-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">01</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Right Now - Ahmeel</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">Ahmeel</div>
+          <div class="tile-title">Right Now</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927558" data-vimeo-title="Hurt-Terry Curtis" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927558" data-vimeo-title="Hurt-Terry Curtis" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927558?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Terry Curtis" data-display-title="Hurt" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984112-246bca1e39d65e305cf9086fb6139738b2a6ebfd4ccecfd63cf8847d44400ed7-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">02</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Hurt - Terry Curtis</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">Terry Curtis</div>
+          <div class="tile-title">Hurt</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927528" data-vimeo-title="_What Sinners Do_- JRU" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927528" data-vimeo-title="_What Sinners Do_- JRU" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927528?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="JRU" data-display-title="What Sinners Do" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983835-075295a4ce4e7ff960b923d7dca4743c90dcaedd5bc284bc2a29385093ae78ea-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">03</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">What Sinners Do - JRU</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">JRU</div>
+          <div class="tile-title">What Sinners Do</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927538" data-vimeo-title="Most Hated- Yung Dubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927538" data-vimeo-title="Most Hated- Yung Dubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927538?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Yung Dubbb" data-display-title="Most Hated" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">04</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Most Hated - Yung Dubbb</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">Yung Dubbb</div>
+          <div class="tile-title">Most Hated</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927098" data-vimeo-title="Jrip - 99 Problems" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927098" data-vimeo-title="Jrip - 99 Problems" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927098?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Jrip" data-display-title="99 Problems" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">05</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">99 Problems - Jrip</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">Jrip</div>
+          <div class="tile-title">99 Problems</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926890" data-vimeo-title="Mhmmm”x”2- YungDubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926890" data-vimeo-title="Mhmmm”x”2- YungDubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926890?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="YungDubbb" data-display-title="Mhmmm x2" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982476-b35e0bfafd1fc3015fc3e94d993e5b159a612dd6745e0339d87770c997fc76d1-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">06</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Mhmmm x2 - YungDubbb</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">YungDubbb</div>
+          <div class="tile-title">Mhmmm x2</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926889" data-vimeo-title="JLifestyle & FlashLewis - Bad Bitches (Official Music Video)" data-vimeo-sub="Music Video" data-vimeo-category="music-videos">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926889" data-vimeo-title="JLifestyle & FlashLewis - Bad Bitches (Official Music Video)" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="JLifestyle & FlashLewis" data-display-title="Bad Bitches" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">07</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Music Video</div>
-          <div class="tile-title">Bad Bitches - JLifestyle & FlashLewis</div>
-          <div class="tile-sub">Music Video</div>
+          <div class="tile-kicker">JLifestyle & FlashLewis</div>
+          <div class="tile-title">Bad Bitches</div>
+          
         </div>
       </div>
     </div>
@@ -3380,35 +3688,35 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Commercials</h2>
+      <div class="category-view-kicker">Commercials</div>
     </div>
     <div class="detail-grid">
       <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #101214 0%, #29333e 44%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">01</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
+          <div class="tile-kicker">Commercial</div>
           <div class="tile-title">Velocity Auto</div>
           <div class="tile-sub">Brand Spot</div>
         </div>
       </div>
 <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #111111 0%, #262626 46%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">02</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
+          <div class="tile-kicker">Commercial</div>
           <div class="tile-title">Northline Apparel</div>
           <div class="tile-sub">Campaign Film</div>
         </div>
       </div>
 <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #0f1113 0%, #212933 50%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">03</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Commercial</div>
+          <div class="tile-kicker">Commercial</div>
           <div class="tile-title">Upload Coming Soon</div>
           <div class="tile-sub">Next Commercial</div>
         </div>
@@ -3424,95 +3732,95 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Concerts</h2>
+      <div class="category-view-kicker">Concerts</div>
     </div>
     <div class="detail-grid">
-      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929525" data-vimeo-title="PoloG Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929525" data-vimeo-title="PoloG Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210929525?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="PoloG" data-display-title="Concert Recap" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985514-b86bc76ae65ee5dd969a63d9f2522603fc9184d5cc4d18eefd32f701436dadce-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">01</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
-          <div class="tile-title">PoloG Concert Recap</div>
-          <div class="tile-sub">Concert Recap</div>
+          <div class="tile-kicker">PoloG</div>
+          <div class="tile-title">Concert Recap</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929170" data-vimeo-title="Key Glock 10-16-21" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929170" data-vimeo-title="Key Glock 10-16-21" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210929170?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="Key Glock 10-16-21" data-display-sub="Concert Recap">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985657-ca406c5224f1f851b838df8883f1084f360bd8c1370241eafe04922e57f3fe7f-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">02</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">Key Glock 10-16-21</div>
           <div class="tile-sub">Concert Recap</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929292" data-vimeo-title="No Tolerance Lake Day 04-24-21" data-vimeo-sub="04-24-21" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929292" data-vimeo-title="No Tolerance Lake Day 04-24-21" data-vimeo-sub="04-24-21" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210929292?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="No Tolerance Lake Day" data-display-sub="04-24-21">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985546-b7ce16b266c9691c4eca3ef588d27ef2069d6905b8a1ca36c9ce79f07af50a9a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">03</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">No Tolerance Lake Day</div>
           <div class="tile-sub">04-24-21</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929424" data-vimeo-title="Polo G Concert (09-20-19)" data-vimeo-sub="09-20-19" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929424" data-vimeo-title="Polo G Concert (09-20-19)" data-vimeo-sub="09-20-19" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210929424?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="Polo G Concert" data-display-sub="09-20-19">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985223-a0e23839e5f3354a6013fdd7029413f99b784bf5b3ffef0762c9b3d5b5b63dd7-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">04</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">Polo G Concert</div>
           <div class="tile-sub">09-20-19</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929165" data-vimeo-title="IMANBEK x NLE CHOPPA 10.28.22" data-vimeo-sub="10.28.22" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210929165" data-vimeo-title="IMANBEK x NLE CHOPPA 10.28.22" data-vimeo-sub="10.28.22" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210929165?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="IMANBEK x NLE CHOPPA" data-display-sub="10.28.22">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985117-2d2ca747371fe8fdde51be836e5998eb8257c280352a3eac374def214df9b3c5-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">05</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">IMANBEK x NLE CHOPPA</div>
           <div class="tile-sub">10.28.22</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928471" data-vimeo-title="Bankrol Hayden 10-30-21 V1" data-vimeo-sub="10-30-21 V1" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928471" data-vimeo-title="Bankrol Hayden 10-30-21 V1" data-vimeo-sub="10-30-21 V1" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210928471?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="Bankrol Hayden" data-display-sub="10-30-21 V1">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984973-d4e4d15ff3c9da556e38fe4fd0cbf5b67717396db769f82d2d41de7a26eea318-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">06</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">Bankrol Hayden</div>
           <div class="tile-sub">10-30-21 V1</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928889" data-vimeo-title="Heaven and Hell Event Recap" data-vimeo-sub="Event Recap" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928889" data-vimeo-title="Heaven and Hell Event Recap" data-vimeo-sub="Event Recap" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210928889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="Heaven and Hell" data-display-sub="Event Recap">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984773-4972dd4ceb9241d9e7827d32cf575c3bacfdac8ebaffbf2f06fda7e915e3420a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">07</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">Heaven and Hell</div>
           <div class="tile-sub">Event Recap</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928816" data-vimeo-title="GroupLove Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928816" data-vimeo-title="GroupLove Concert Recap" data-vimeo-sub="Concert Recap" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210928816?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="GroupLove Concert" data-display-sub="Concert Recap">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984770-0ee0617aec60647f4c6739dcd3aecf236598a0a72ff4fb47695267a227a626c0-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">08</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">GroupLove Concert</div>
           <div class="tile-sub">Concert Recap</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928668" data-vimeo-title="DJ Trek 01.14.23" data-vimeo-sub="01.14.23" data-vimeo-category="concerts">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210928668" data-vimeo-title="DJ Trek 01.14.23" data-vimeo-sub="01.14.23" data-vimeo-category="concerts" data-preview-src="https://player.vimeo.com/video/1210928668?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=20s" data-display-kicker="Concert" data-display-title="DJ Trek" data-display-sub="01.14.23">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984330-931eb036b9143340fa5c1ef7a9dc975d7c329a01692043b5bc5e7faf5cb7a100-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">09</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Concert</div>
+          <div class="tile-kicker">Concert</div>
           <div class="tile-title">DJ Trek</div>
           <div class="tile-sub">01.14.23</div>
         </div>
@@ -3528,7 +3836,7 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Photography</h2>
+      <div class="category-view-kicker">Photography</div>
     </div>
     <div class="photo-gallery">
       <button class="photo-tile feature" type="button" data-photo-gallery="photography" data-photo-index="0" data-photo-title="Photo 01" data-photo-sub="Photography">
@@ -3590,35 +3898,35 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Events</h2>
+      <div class="category-view-kicker">Events</div>
     </div>
     <div class="detail-grid">
       <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #14100d 0%, #3c2415 45%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">01</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Event</div>
+          <div class="tile-kicker">Event</div>
           <div class="tile-title">Bid Day Recap</div>
           <div class="tile-sub">Campus Event Film</div>
         </div>
       </div>
 <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #161110 0%, #2d1d1a 50%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">02</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Event</div>
+          <div class="tile-kicker">Event</div>
           <div class="tile-title">Dance Class Recap</div>
           <div class="tile-sub">Studio Event Edit</div>
         </div>
       </div>
 <div class="detail-tile">
         <div class="tile-bg" style="linear-gradient(135deg, #17120f 0%, #38261a 50%, #090909 100%); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">03</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Event</div>
+          <div class="tile-kicker">Event</div>
           <div class="tile-title">Upload Coming Soon</div>
           <div class="tile-sub">Next Event Recap</div>
         </div>
@@ -3634,97 +3942,97 @@
       Back
     </button>
     <div class="category-view-header">
-      <h2 class="section-heading">Short Form</h2>
+      <div class="category-view-kicker">Short Form</div>
     </div>
     <div class="detail-grid">
-      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971766" data-vimeo-title="SouljaBoy TikTok 2" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971766" data-vimeo-title="SouljaBoy TikTok 2" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971766?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="Short Form" data-display-title="SouljaBoy Concert" data-display-sub="Short Form">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037525-39fe083acd5afeed09e6fd0eab0c361babbe5abc2992c7a7d7e32f2a05199ce9-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">01</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
+          <div class="tile-kicker">Short Form</div>
           <div class="tile-title">SouljaBoy Concert</div>
           <div class="tile-sub">Short Form</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971769" data-vimeo-title="TY Myers 09.14.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971769" data-vimeo-title="TY Myers 09.14.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971769?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="TY Myers" data-display-title="Concert Recap" data-display-sub="09.14.24">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037506-9159bad7412d3f97c6e353aa127bd0f3468318f161d74bcd6c75922f0ad0cc85-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">02</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">TY Myers Concert Recap 09.14.24</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">TY Myers</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">09.14.24</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971658" data-vimeo-title="DJ Trek (Vertical)" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971658" data-vimeo-title="DJ Trek (Vertical)" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971658?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="DJ Trek" data-display-title="Concert Recap" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037453-9ae926d097806dc47cbfd36f9e68e1f91ba9143fe0abb021a02feec0a3f4dcda-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">03</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">DJ Trek Concert Recap</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">DJ Trek</div>
+          <div class="tile-title">Concert Recap</div>
+          
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971806" data-vimeo-title="YBN Nahmir Recap 10.31.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971806" data-vimeo-title="YBN Nahmir Recap 10.31.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971806?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="YBN Nahmir" data-display-title="Concert Recap" data-display-sub="10.31.24">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037507-4d15be1102c308e9a8741680e463cfd54d33193b4fc859fed3621caf7ea2fcf4-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">04</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">YBN Nahmir Concert Recap 10.31.24</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">YBN Nahmir</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">10.31.24</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971772" data-vimeo-title="Waka Flocka x Tay Money Concert 03.15.25" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971772" data-vimeo-title="Waka Flocka x Tay Money Concert 03.15.25" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971772?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="Waka Flocka x Tay Money" data-display-title="Concert Recap" data-display-sub="03.15.25">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037495-338a90340cc2ef4b28b92b643372cf1d3adc41cab000a719140cfcc7c4fac491-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">05</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">Waka Flocka x Tay Money Concert Recap 03.15.25</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">Waka Flocka x Tay Money</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">03.15.25</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971657" data-vimeo-title="DJ Exile 06.09.23 Video Recap 12.01.11 AM" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971657" data-vimeo-title="DJ Exile 06.09.23 Video Recap 12.01.11 AM" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971657?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="DJ Exile" data-display-title="Concert Recap" data-display-sub="06.09.23">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037473-1797ad69bef7a43c99be61e3ae617ae60388387eb32c43a81e923a0d9f9b16de-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">06</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">DJ Exile Concert Recap 06.09.23</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">DJ Exile</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">06.09.23</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971700" data-vimeo-title="Lil Skies Concert Recap 11.04.23" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971700" data-vimeo-title="Lil Skies Concert Recap 11.04.23" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971700?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="Lil Skies" data-display-title="Concert Recap" data-display-sub="11.04.23">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037463-a167d1b4e9b878d6de80239f49f18fe9473a80331b48b888368eff110372bf18-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">07</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">Lil Skies Concert Recap 11.04.23</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">Lil Skies</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">11.04.23</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971656" data-vimeo-title="DJ WetLi 06.16.23 Video Recap" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971656" data-vimeo-title="DJ WetLi 06.16.23 Video Recap" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971656?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="DJ WetLi" data-display-title="Concert Recap" data-display-sub="06.16.23">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037448-b5b6fff355e3d3e21ce5d6ac86f10dafcf8a1382a6704dd4b16a38ad7cded38a-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">08</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">DJ WetLi Concert Recap 06.16.23</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">DJ WetLi</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">06.16.23</div>
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971659" data-vimeo-title="JamFest 04.07.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210971659" data-vimeo-title="JamFest 04.07.24" data-vimeo-sub="Short Form" data-vimeo-category="short-form" data-preview-src="https://player.vimeo.com/video/1210971659?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=12s" data-display-kicker="JamFest" data-display-title="Concert Recap" data-display-sub="04.07.24">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2181037373-3afc56d990b1e8a1022a01431584d9c87302fb32fabb847fe995a99e323b56cf-d_1280?region=us'); background-size: cover; background-position: center;"></div>
-        <div class="tile-num">09</div>
+        <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-cat">Short Form</div>
-          <div class="tile-title">JamFest Concert Recap 04.07.24</div>
-          <div class="tile-sub">Short Form</div>
+          <div class="tile-kicker">JamFest</div>
+          <div class="tile-title">Concert Recap</div>
+          <div class="tile-sub">04.07.24</div>
         </div>
       </div>
     </div>
@@ -3742,7 +4050,7 @@
       <div class="reveal-up">
         <div class="footer-col-title">Sitemap</div>
         <div class="footer-links">
-          <a href="#featured-work">Work</a>
+          <a href="#portfolio">Portfolio</a>
           <a href="#about">About</a>
           <a href="#start-project">Start a Project</a>
         </div>
@@ -3798,7 +4106,7 @@
 </div>
 <div class="work-lightbox" id="workLightbox">
   <div class="work-lightbox-backdrop" data-lightbox-close></div>
-  <button class="work-lightbox-close" data-lightbox-close aria-label="Close">&times;</button>
+  <button class="work-lightbox-close" data-lightbox-close aria-label="Close">Close</button>
   <div class="work-lightbox-card">
     <button class="work-lightbox-nav prev" type="button" data-video-prev aria-label="Previous video">
       <svg viewBox="0 0 24 24"><path d="M15 18 9 12l6-6"/></svg>
@@ -3838,7 +4146,7 @@
 (() => {
   const q = (sel, root = document) => root.querySelector(sel);
   const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const routes = new Set(['home', 'featured-work', 'portfolio', 'about', 'start-project', 'privacy-policy', 'terms-of-service']);
+  const routes = new Set(['home', 'portfolio', 'about', 'start-project', 'privacy-policy', 'terms-of-service']);
 
   function routeFromHash() {
     const raw = window.location.hash.replace(/^#/, '');
@@ -3871,7 +4179,7 @@
   window.addEventListener('hashchange', () => {
     const route = routeFromHash();
     setRoute(route);
-    const categoryMatch = window.location.hash.match(/^#(featured-work|portfolio)\/(.+)$/);
+    const categoryMatch = window.location.hash.match(/^#(portfolio)\/(.+)$/);
     if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
   });
 
@@ -4023,18 +4331,12 @@
   }
 
   const navEl = q('nav');
-  const darkSections = qa('.section-dark');
   function updateNavTheme() {
     if (!navEl) return;
     const route = routeFromHash();
-    navEl.classList.toggle('solid', route !== 'home');
-    const navMid = navEl.getBoundingClientRect().top + navEl.offsetHeight / 2;
-    const overDark = darkSections.some(sec => {
-      if (!sec.closest('.page-view.active')) return false;
-      const rect = sec.getBoundingClientRect();
-      return navMid >= rect.top && navMid <= rect.bottom;
-    });
-    navEl.classList.toggle('on-dark', overDark);
+    const topMode = route === 'home' && window.scrollY < Math.max(90, window.innerHeight * 0.16) && !q('.category-view.open');
+    navEl.classList.toggle('home-top', topMode);
+    navEl.classList.toggle('solid', !topMode);
   }
   window.addEventListener('scroll', updateNavTheme, { passive: true });
   window.addEventListener('resize', updateNavTheme);
@@ -4106,7 +4408,7 @@
   qa('.category-view').forEach(view => view.addEventListener('scroll', updateScrollProgress, { passive: true }));
 
   const categoryViews = qa('.category-view');
-  let categoryOverlayBaseRoute = 'featured-work';
+  let categoryOverlayBaseRoute = 'portfolio';
 
   function buildVimeoPlayerUrl(videoId, { autoplay = false, background = false } = {}) {
     const params = new URLSearchParams({
@@ -4137,6 +4439,16 @@
     if (pushHash) window.location.hash = `${baseRoute}/${slug}`;
     updateCallPill();
     updateScrollProgress();
+    const activeView = q('.category-view.open');
+    if (activeView) {
+      const previewTiles = qa('.detail-tile[data-preview-src]', activeView).slice(0, 4);
+      const warm = () => previewTiles.forEach(prewarmTilePreview);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(warm, { timeout: 900 });
+      } else {
+        setTimeout(warm, 120);
+      }
+    }
   }
   function closeCategoryView(pushHash) {
     categoryViews.forEach(v => v.classList.remove('open'));
@@ -4164,6 +4476,10 @@
     btn.addEventListener('click', () => openCategoryView(btn.dataset.portfolioFilter, true, 'portfolio'));
   });
 
+  qa('.home-portfolio-filter').forEach(btn => {
+    btn.addEventListener('click', () => openCategoryView(btn.dataset.homeFilter, true, 'home'));
+  });
+
   const heroVideoBg = q('#heroVideoBg');
   const slideEls = heroVideoBg ? qa('.hero-video-slide', heroVideoBg) : [];
   const progressSegs = qa('.hero-video-progress-seg');
@@ -4176,20 +4492,46 @@
     heroTimer = setInterval(() => goToHeroSlide(heroIndex + 1), 7000);
   }
   startHeroAutoplay = beginHeroAutoplay;
-  function loadSlideFrame(frame) {
-    if (!frame) return;
-    const target = frame.dataset.iframeSrc || '';
-    if (!target) return;
-    const slide = frame.closest('.hero-video-slide');
+  function getSlideMedia(slide) {
+    return slide?.querySelector('iframe, video') || null;
+  }
+  function markHeroSlideReady(slide, idx) {
+    if (!slide) return;
+    slide.classList.add('hero-loaded');
+    if (idx === 0) heroFirstFrameReady = true;
+  }
+  function loadSlideMedia(media, idx) {
+    if (!media) return;
+    const slide = media.closest('.hero-video-slide');
     slide?.classList.remove('hero-loaded');
-    frame.removeAttribute('src');
-    frame.setAttribute('src', target);
+    if (media.tagName === 'IFRAME') {
+      const target = media.dataset.iframeSrc || '';
+      if (!target) return;
+      media.removeAttribute('src');
+      media.setAttribute('src', target);
+      return;
+    }
+    if (media.tagName === 'VIDEO') {
+      const startPlay = () => media.play().catch(() => {});
+      if (media.readyState >= 2) {
+        markHeroSlideReady(slide, idx);
+        startPlay();
+      } else {
+        media.load();
+      }
+    }
   }
   function ensureSlideLoaded(i) {
-    const frame = slideEls[i]?.querySelector('iframe');
-    if (!frame) return;
-    if (!frame.getAttribute('src')) {
-      frame.setAttribute('src', frame.dataset.iframeSrc || '');
+    const media = getSlideMedia(slideEls[i]);
+    if (!media) return;
+    if (media.tagName === 'IFRAME') {
+      if (!media.getAttribute('src')) {
+        media.setAttribute('src', media.dataset.iframeSrc || '');
+      }
+      return;
+    }
+    if (media.tagName === 'VIDEO' && media.readyState === 0) {
+      media.load();
     }
   }
   function goToHeroSlide(i) {
@@ -4197,10 +4539,12 @@
     heroIndex = ((i % slideEls.length) + slideEls.length) % slideEls.length;
     slideEls.forEach((slide, idx) => {
       slide.classList.toggle('active', idx === heroIndex);
-      const frame = slide.querySelector('iframe');
-      if (!frame) return;
+      const media = getSlideMedia(slide);
+      if (!media) return;
       if (idx === heroIndex) {
-        loadSlideFrame(frame);
+        loadSlideMedia(media, idx);
+      } else if (media.tagName === 'VIDEO') {
+        media.pause();
       }
     });
     progressSegs.forEach((seg, idx) => seg.classList.toggle('filled', idx === heroIndex));
@@ -4218,11 +4562,17 @@
   }
   if (slideEls.length) {
     slideEls.forEach((slide, idx) => {
-      const frame = slide.querySelector('iframe');
-      frame?.addEventListener('load', () => {
-        slide.classList.add('hero-loaded');
-        if (idx === 0) heroFirstFrameReady = true;
-      });
+      const media = getSlideMedia(slide);
+      if (!media) return;
+      if (media.tagName === 'IFRAME') {
+        media.addEventListener('load', () => markHeroSlideReady(slide, idx));
+        return;
+      }
+      if (media.tagName === 'VIDEO') {
+        const ready = () => markHeroSlideReady(slide, idx);
+        media.addEventListener('loadeddata', ready);
+        media.addEventListener('canplay', ready);
+      }
     });
     progressSegs.forEach(seg => seg.addEventListener('click', () => {
       goToHeroSlide(parseInt(seg.dataset.go, 10));
@@ -4335,6 +4685,30 @@
   const photoViewerState = { slug: '', index: 0 };
   const videoViewerState = { tiles: [], index: 0 };
 
+  function prewarmTilePreview(tile) {
+    const previewSrc = tile.dataset.previewSrc;
+    const preview = q('.tile-preview', tile);
+    if (!previewSrc || !preview || preview.childElementCount) return;
+    preview.innerHTML = '<iframe src="' + previewSrc + '" allow="autoplay; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" title="' + (tile.dataset.vimeoTitle || tile.dataset.displayTitle || '') + ' preview"></iframe>';
+    tile.dataset.previewReady = '1';
+  }
+
+  function mountTilePreview(tile) {
+    const previewSrc = tile.dataset.previewSrc;
+    const preview = q('.tile-preview', tile);
+    if (!previewSrc || !preview) return;
+    if (!preview.childElementCount) prewarmTilePreview(tile);
+    tile.classList.add('preview-active');
+  }
+
+  function unmountTilePreview(tile) {
+    const preview = q('.tile-preview', tile);
+    if (!preview) return;
+    tile.classList.remove('preview-active');
+    if (tile.dataset.previewReady === '1') return;
+    preview.innerHTML = '';
+  }
+
   function renderPhotoViewer() {
     const gallery = photoGalleryMap.get(photoViewerState.slug) || [];
     const active = gallery[photoViewerState.index];
@@ -4380,9 +4754,9 @@
     if (!active || !lightboxMedia) return;
     lightboxMedia.classList.add('has-vimeo');
     lightboxMedia.innerHTML = '<iframe src="' + buildVimeoPlayerUrl(active.dataset.vimeoId, { autoplay: true }) + '" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="' + (active.dataset.vimeoTitle || '') + '"></iframe>';
-    if (lightboxCat) lightboxCat.textContent = q('.tile-cat', active)?.textContent || '';
-    if (lightboxTitle) lightboxTitle.textContent = active.dataset.vimeoTitle || q('.tile-title', active)?.textContent || '';
-    if (lightboxSub) lightboxSub.textContent = active.dataset.vimeoSub || q('.tile-sub', active)?.textContent || '';
+    if (lightboxCat) lightboxCat.textContent = active.dataset.displayKicker || '';
+    if (lightboxTitle) lightboxTitle.textContent = active.dataset.displayTitle || active.dataset.vimeoTitle || q('.tile-title', active)?.textContent || '';
+    if (lightboxSub) lightboxSub.textContent = active.dataset.displaySub || '';
     const showNav = videoViewerState.tiles.length > 1;
     if (videoPrev) videoPrev.style.display = showNav ? 'inline-flex' : 'none';
     if (videoNext) videoNext.style.display = showNav ? 'inline-flex' : 'none';
@@ -4412,9 +4786,9 @@
       lightboxMedia.innerHTML = isVimeo ? tile.dataset.vimeoEmbed || '' : '';
       lightboxMedia.style.background = isVimeo ? '#050505' : (bg ? getComputedStyle(bg).backgroundImage : '');
     }
-    if (lightboxCat) lightboxCat.textContent = q('.tile-cat', tile)?.textContent || '';
-    if (lightboxTitle) lightboxTitle.textContent = isVimeo ? (tile.dataset.vimeoTitle || q('.tile-title', tile)?.textContent || '') : (q('.tile-title', tile)?.textContent || '');
-    if (lightboxSub) lightboxSub.textContent = isVimeo ? (tile.dataset.vimeoSub || q('.tile-sub', tile)?.textContent || '') : (q('.tile-sub', tile)?.textContent || '');
+    if (lightboxCat) lightboxCat.textContent = tile.dataset.displayKicker || '';
+    if (lightboxTitle) lightboxTitle.textContent = tile.dataset.displayTitle || (isVimeo ? (tile.dataset.vimeoTitle || q('.tile-title', tile)?.textContent || '') : (q('.tile-title', tile)?.textContent || ''));
+    if (lightboxSub) lightboxSub.textContent = tile.dataset.displaySub || '';
     if (videoPrev) videoPrev.style.display = 'none';
     if (videoNext) videoNext.style.display = 'none';
     workLightbox.classList.add('open');
@@ -4443,27 +4817,12 @@
     }
     openLightbox(tile);
   }));
-  qa('.featured-word-item').forEach(tile => tile.addEventListener('click', () => {
-    const slug = tile.dataset.featuredCategory;
-    const index = parseInt(tile.dataset.featuredIndex, 10) || 0;
-    const category = CATEGORY_DEFS.find(item => item.slug === slug);
-    const project = category?.items?.[index];
-    if (!category || !project) return;
-    if (slug === 'photography') {
-      openPhotoViewer(slug, index);
-      return;
-    }
-    if (project.vimeoId) {
-      const scope = q('.category-view[data-view="' + slug + '"]');
-      const all = scope ? qa('.detail-tile[data-vimeo-id]', scope) : [];
-      const activeIndex = Math.max(0, all.findIndex(tileEl => tileEl.dataset.vimeoId === project.vimeoId));
-      if (all.length) {
-        openVideoViewer(all, Math.max(0, activeIndex));
-        return;
-      }
-    }
-    openCategoryView(slug, true, 'featured-work');
-  }));
+  qa('.detail-tile[data-preview-src]').forEach(tile => {
+    tile.addEventListener('mouseenter', () => mountTilePreview(tile));
+    tile.addEventListener('mouseleave', () => unmountTilePreview(tile));
+    tile.addEventListener('focusin', () => mountTilePreview(tile));
+    tile.addEventListener('focusout', () => unmountTilePreview(tile));
+  });
   qa('[data-photo-gallery]').forEach(tile => tile.addEventListener('click', () => {
     openPhotoViewer(tile.dataset.photoGallery, parseInt(tile.dataset.photoIndex, 10) || 0);
   }));
@@ -4496,7 +4855,7 @@
 
   bindPointerEffects();
   setRoute(routeFromHash());
-  const categoryMatch = window.location.hash.match(/^#(featured-work|portfolio)\/(.+)$/);
+  const categoryMatch = window.location.hash.match(/^#(portfolio)\/(.+)$/);
   if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
   updateNavTheme();
   updateHeroParallax();
