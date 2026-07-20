@@ -1934,11 +1934,13 @@
     transition: opacity 0.4s ease, transform 0.9s cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  body.spa-mode.loading #navLogo img {
+  body.spa-mode.loading #navLogo img,
+  body.spa-mode.site-revealing #navLogo img {
     opacity: 0;
-    transform: translateZ(0) scale(0.88);
+    transform: translateZ(0) scale(1);
   }
 
+  body.spa-mode.logo-landed #navLogo img,
   body.spa-mode.loader-complete #navLogo img {
     opacity: 1;
     transform: translateZ(0) scale(1);
@@ -2169,8 +2171,17 @@
     margin: 0 auto;
   }
 
+  .category-view {
+    top: 92px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   .category-view-inner {
     width: 100%;
+    max-width: none;
+    padding: 28px 8px 140px;
   }
 
   .portfolio-category .category-back {
@@ -2179,7 +2190,7 @@
 
   .portfolio-category .category-view-header {
     margin-bottom: 20px;
-    padding: 0 28px;
+    padding: 0 8px;
   }
 
   .category-view-kicker {
@@ -3057,6 +3068,80 @@
     transform: scale(1.11);
   }
 
+  @media (max-width: 1100px) and (orientation: portrait), (max-width: 900px) {
+    body.spa-mode nav {
+      grid-template-columns: 1fr auto;
+      gap: 0;
+      align-items: center;
+      padding: 18px 24px;
+      background: rgba(10,10,10,0.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: rgba(255,255,255,0.05);
+    }
+    body.spa-mode nav .nav-item,
+    body.spa-mode nav .nav-contact {
+      display: none;
+    }
+    body.spa-mode nav .nav-center {
+      grid-column: 1;
+      justify-self: start;
+      align-items: flex-start;
+      min-height: 44px;
+    }
+    body.spa-mode nav .nav-burger {
+      display: flex;
+      grid-column: 2;
+      justify-self: end;
+      align-self: center;
+    }
+    .subpage-view { padding-top: 78px; }
+    .category-view { top: 78px; }
+    .page-header { padding: 94px 24px 52px; }
+    .portfolio-picker { padding: 0 24px 40px; }
+    .portfolio-selector { gap: 12px 16px; }
+    .portfolio-filter-label { font-size: clamp(22px, 7vw, 34px); }
+    .featured-word-selector { grid-template-columns: 1fr; }
+    .portfolio-category { padding: 52px 0; }
+    .portfolio-category .category-view-header { padding: 0 4px; }
+    .category-view-inner { padding: 20px 4px 100px; }
+    .detail-grid {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .detail-grid .detail-tile,
+    .detail-grid .detail-tile:first-child,
+    .detail-grid .detail-tile:nth-child(4n + 2),
+    .detail-grid .detail-tile:nth-child(4n + 3),
+    .detail-grid .detail-tile:nth-child(4n + 4),
+    .detail-grid .detail-tile:nth-child(4n + 5) {
+      grid-column: span 1;
+      aspect-ratio: 1.18 / 1;
+      min-height: 250px;
+      border-radius: 20px;
+    }
+    .detail-tile .tile-play {
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+    .detail-tile .tile-info {
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+    }
+    .detail-tile .tile-kicker {
+      font-size: clamp(15px, 4.8vw, 20px);
+    }
+    .detail-tile .tile-title {
+      font-size: clamp(17px, 5.4vw, 22px);
+    }
+    .detail-tile .tile-sub {
+      font-size: 12px;
+    }
+  }
+
   @media (max-width: 700px) {
     body.spa-mode nav {
       grid-template-columns: 1fr auto;
@@ -3085,6 +3170,7 @@
       align-self: center;
     }
     .subpage-view { padding-top: 78px; }
+    .category-view { top: 78px; }
     .page-header { padding: 94px 24px 52px; }
     .home-actions {
       flex-direction: column;
@@ -3115,7 +3201,8 @@
     .portfolio-filter-label { font-size: clamp(22px, 9vw, 34px); }
     .featured-word-selector { grid-template-columns: 1fr; }
     .portfolio-category { padding: 52px 0; }
-    .portfolio-category .category-view-header { padding: 0 16px; }
+    .portfolio-category .category-view-header { padding: 0 4px; }
+    .category-view-inner { padding: 20px 4px 100px; }
     .detail-grid {
       grid-template-columns: 1fr;
       gap: 2px;
@@ -3250,18 +3337,18 @@
     <section class="hero section-dark">
   <div class="hero-video-bg" id="heroVideoBg">
     
-    <div class="hero-video-slide active" data-index="0" data-title="Bad Bitches - JLifestyle & FlashLewis" data-cat="Music Video" data-vimeo-id="1210926889">
-      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us" alt="Bad Bitches - JLifestyle & FlashLewis">
+    <div class="hero-video-slide active" data-index="0" data-title="JLifestyle & FlashLewis - Bad Bitches" data-cat="Music Video" data-vimeo-id="1210926889">
+      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us" alt="JLifestyle & FlashLewis - Bad Bitches">
       <video class="hero-video-file" autoplay muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/Bad%20Bitches%20Preview.mp4"></video>
     </div>
 
-    <div class="hero-video-slide" data-index="1" data-title="99 Problems - Jrip" data-cat="Music Video" data-vimeo-id="1210927098">
-      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us" alt="99 Problems - Jrip">
+    <div class="hero-video-slide" data-index="1" data-title="Jrip - 99 Problems" data-cat="Music Video" data-vimeo-id="1210927098">
+      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us" alt="Jrip - 99 Problems">
       <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/99%20Problems%20Preview.mp4"></video>
     </div>
 
-    <div class="hero-video-slide" data-index="2" data-title="Most Hated - Yung Dubbb" data-cat="Music Video" data-vimeo-id="1210927538">
-      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us" alt="Most Hated - Yung Dubbb">
+    <div class="hero-video-slide" data-index="2" data-title="Yung Dubbb - Most Hated" data-cat="Music Video" data-vimeo-id="1210927538">
+      <img class="hero-video-poster" src="https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us" alt="Yung Dubbb - Most Hated">
       <video class="hero-video-file" muted loop playsinline preload="auto" src="https://saborstudios2.vercel.app/previews/Most%20Hated%20Preview.mp4"></video>
     </div>
 
@@ -3627,73 +3714,73 @@
       <div class="category-view-kicker">Music Videos</div>
     </div>
     <div class="detail-grid">
-      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927512" data-vimeo-title="Right Now-Ahmeel" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927512?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Ahmeel" data-display-title="Right Now" data-display-sub="" data-home-featured="true">
+      <div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927512" data-vimeo-title="Ahmeel - Right Now" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927512?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Right Now" data-display-title="Ahmeel" data-display-sub="" data-home-featured="true">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180985774-54ca4228f876bb33d6a9cdc21003c8679a1d359659bac7c23a40957ac29921b3-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">Ahmeel</div>
-          <div class="tile-title">Right Now</div>
+          <div class="tile-kicker">Right Now</div>
+          <div class="tile-title">Ahmeel</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927558" data-vimeo-title="Hurt-Terry Curtis" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927558?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Terry Curtis" data-display-title="Hurt" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927558" data-vimeo-title="Terry Curtis - Hurt" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927558?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Hurt" data-display-title="Terry Curtis" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180984112-246bca1e39d65e305cf9086fb6139738b2a6ebfd4ccecfd63cf8847d44400ed7-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">Terry Curtis</div>
-          <div class="tile-title">Hurt</div>
+          <div class="tile-kicker">Hurt</div>
+          <div class="tile-title">Terry Curtis</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927528" data-vimeo-title="_What Sinners Do_- JRU" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927528?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="JRU" data-display-title="What Sinners Do" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927528" data-vimeo-title="JRU - What Sinners Do" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927528?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="What Sinners Do" data-display-title="JRU" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983835-075295a4ce4e7ff960b923d7dca4743c90dcaedd5bc284bc2a29385093ae78ea-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">JRU</div>
-          <div class="tile-title">What Sinners Do</div>
+          <div class="tile-kicker">What Sinners Do</div>
+          <div class="tile-title">JRU</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927538" data-vimeo-title="Most Hated- Yung Dubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927538?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Yung Dubbb" data-display-title="Most Hated" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927538" data-vimeo-title="Yung Dubbb - Most Hated" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927538?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Most Hated" data-display-title="Yung Dubbb" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180983793-eb2cfaaac1229809c8dfd1e6ab3caec814be96aca248eb60ccdc6284f1e26e2d-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">Yung Dubbb</div>
-          <div class="tile-title">Most Hated</div>
+          <div class="tile-kicker">Most Hated</div>
+          <div class="tile-title">Yung Dubbb</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927098" data-vimeo-title="Jrip - 99 Problems" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927098?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Jrip" data-display-title="99 Problems" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210927098" data-vimeo-title="Jrip - 99 Problems" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210927098?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="99 Problems" data-display-title="Jrip" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982508-534aeb02de3e96e118f331ee7a8f2f52731bc7fdb8e6f0fddbb7b334842cf1a0-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">Jrip</div>
-          <div class="tile-title">99 Problems</div>
+          <div class="tile-kicker">99 Problems</div>
+          <div class="tile-title">Jrip</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926890" data-vimeo-title="Mhmmm”x”2- YungDubbb" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926890?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="YungDubbb" data-display-title="Mhmmm x2" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926890" data-vimeo-title="YungDubbb - Mhmmm x2" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926890?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Mhmmm x2" data-display-title="YungDubbb" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982476-b35e0bfafd1fc3015fc3e94d993e5b159a612dd6745e0339d87770c997fc76d1-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">YungDubbb</div>
-          <div class="tile-title">Mhmmm x2</div>
+          <div class="tile-kicker">Mhmmm x2</div>
+          <div class="tile-title">YungDubbb</div>
           
         </div>
       </div>
-<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926889" data-vimeo-title="JLifestyle & FlashLewis - Bad Bitches (Official Music Video)" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="JLifestyle & FlashLewis" data-display-title="Bad Bitches" data-display-sub="">
+<div class="detail-tile" data-lightbox-type="vimeo" data-vimeo-id="1210926889" data-vimeo-title="JLifestyle & FlashLewis - Bad Bitches" data-vimeo-sub="Music Video" data-vimeo-category="music-videos" data-preview-src="https://player.vimeo.com/video/1210926889?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;badge=0#t=45s" data-display-kicker="Bad Bitches" data-display-title="JLifestyle & FlashLewis" data-display-sub="">
         <div class="tile-bg" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.58)), url('https://i.vimeocdn.com/video/2180982245-f93f1f59cf5b7c9ed8a2491f7e293447d065a4859173f4b1d47185eb05e275cb-d_1280?region=us'); background-size: cover; background-position: center;"></div>
         <div class="tile-preview"></div>
         <div class="tile-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         <div class="tile-info">
-          <div class="tile-kicker">JLifestyle & FlashLewis</div>
-          <div class="tile-title">Bad Bitches</div>
+          <div class="tile-kicker">Bad Bitches</div>
+          <div class="tile-title">JLifestyle & FlashLewis</div>
           
         </div>
       </div>
@@ -4222,16 +4309,19 @@
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         const loaderRect = loaderWordmark.getBoundingClientRect();
-        const navRect = (navLogoImg || navLogo).getBoundingClientRect();
+        const navRect = navLogo.getBoundingClientRect();
         const dx = (navRect.left + navRect.width / 2) - (loaderRect.left + loaderRect.width / 2);
         const dy = (navRect.top + navRect.height / 2) - (loaderRect.top + loaderRect.height / 2);
         const scaleX = navRect.width / loaderRect.width;
         const scaleY = navRect.height / loaderRect.height;
-        const scale = Math.max(0.16, Math.min(0.34, Math.min(scaleX, scaleY)));
+        const scale = Math.min(scaleX, scaleY) * 1.32;
         loaderWordmark.classList.add('handoff');
         loaderWordmark.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`;
         document.body.classList.add('site-revealing');
-        document.body.classList.add('loader-complete');
+        setTimeout(() => {
+          document.body.classList.add('logo-landed');
+          document.body.classList.add('loader-complete');
+        }, 980);
         setTimeout(() => {
           loader.classList.add('fading-out');
         }, 1040);
@@ -4239,6 +4329,7 @@
           loader.style.display = 'none';
           document.body.classList.remove('site-revealing');
           document.body.classList.remove('loading');
+          document.body.classList.remove('logo-landed');
           startHeroAutoplay();
         }, 1460);
       });
