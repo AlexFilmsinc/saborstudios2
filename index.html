@@ -4654,13 +4654,8 @@
   const mobileMenu = q('#mobileMenu');
   const mobileMenuClose = q('#mobileMenuClose');
   const promoBannerClose = q('#promoBannerClose');
-  const promoBannerDismissKey = 'saborDallasBannerDismissed';
-  if (localStorage.getItem(promoBannerDismissKey) === '1') {
-    document.body.classList.add('banner-hidden');
-  }
   promoBannerClose?.addEventListener('click', () => {
     document.body.classList.add('banner-hidden');
-    localStorage.setItem(promoBannerDismissKey, '1');
   });
   function updateCallPill() {
     const callPill = q('#callPill');
