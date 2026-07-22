@@ -4428,6 +4428,13 @@
   const qa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const routes = new Set(['home', 'portfolio', 'about', 'start-project', 'privacy-policy', 'terms-of-service']);
 
+  function cleanHomeUrl() {
+    const clean = window.location.pathname + window.location.search;
+    if (window.location.hash || window.location.href.endsWith('/#')) {
+      history.replaceState(null, '', clean);
+    }
+  }
+
   function routeFromHash() {
     const raw = window.location.hash.replace(/^#/, '');
     if (!raw) return 'home';
@@ -4458,6 +4465,7 @@
 
   window.addEventListener('hashchange', () => {
     const route = routeFromHash();
+    if (route === 'home' && !window.location.hash) cleanHomeUrl();
     setRoute(route);
     const categoryMatch = window.location.hash.match(/^#(portfolio)\/(.+)$/);
     if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
@@ -4746,10 +4754,28 @@
   function closeCategoryView(pushHash) {
     categoryViews.forEach(v => v.classList.remove('open'));
     document.body.style.overflow = '';
-    if (pushHash && window.location.hash.includes('/')) history.pushState(null, '', '#' + categoryOverlayBaseRoute);
+    if (pushHash && window.location.hash.includes('/')) {
+      if (categoryOverlayBaseRoute === 'home') {
+        history.pushState(null, '', window.location.pathname + window.location.search);
+        setRoute('home');
+      } else {
+        history.pushState(null, '', '#' + categoryOverlayBaseRoute);
+      }
+    }
     updateCallPill();
     updateScrollProgress();
   }
+
+  qa('[data-route-link]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeCategoryView(false);
+      history.pushState(null, '', window.location.pathname + window.location.search);
+      cleanHomeUrl();
+      setRoute('home');
+      updateNavTheme();
+    });
+  });
   qa('.category-tile:not(.portfolio-filter)').forEach(tile => tile.addEventListener('click', () => openCategoryView(tile.dataset.category, true)));
   qa('[data-back]').forEach(btn => btn.addEventListener('click', () => closeCategoryView(true)));
 
@@ -5147,6 +5173,7 @@
   });
 
   bindPointerEffects();
+  cleanHomeUrl();
   setRoute(routeFromHash());
   const categoryMatch = window.location.hash.match(/^#(portfolio)\/(.+)$/);
   if (categoryMatch) openCategoryView(categoryMatch[2], false, categoryMatch[1]);
